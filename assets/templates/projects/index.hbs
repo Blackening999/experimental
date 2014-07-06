@@ -1,0 +1,29 @@
+<div class="cont-outer portfolio-mix quicksand">
+
+    <div class="row-fluid">
+        <div class="span12">
+            <h1>Portfolio</h1>
+        </div>
+    </div>
+
+    <div class="sep20"></div>
+
+    <div class="js-container" data-id="all">
+
+        {{#each mixedContent}}
+            <div {{bind-attr class='currentClass'}}>
+                {{#link-to 'project' this }}
+                    <div class="overlay"></div>
+                    <div class="item">
+                        <div class="header">{{title}}</div>
+                        <div class="content">{{description}}</div>
+                    </div>
+                {{/link-to}}
+                <img {{bind-attr src="cover"}} alt="" />
+            </div>
+        {{/each}}
+    </div>
+    <!-- Portfolio end -->
+
+</div>
+<!--Body End -->

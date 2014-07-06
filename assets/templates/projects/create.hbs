@@ -1,0 +1,103 @@
+<div class="cont-outer">
+
+
+    <div class="row-fluid blog">
+
+        <!-- Main content -->
+        <div class="blog-content blog-items">
+            <div class="span8 step">
+
+                {{#if items.length}}
+                    <!-- Carousel -->
+                    <div id="myCarousel" class="carousel slide">
+                        <ol class="carousel-indicators">
+                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#myCarousel" data-slide-to="1"></li>
+                            <li data-target="#myCarousel" data-slide-to="2"></li>
+                        </ol>
+                        <!-- Carousel items -->
+                        <div class="carousel-inner">
+                            <div class="active item"><img src="img/blog/carousel/691x431.gif" alt="" /></div>
+                            <div class="item"><img src="img/blog/carousel/691x431.gif" alt="" /></div>
+                            <div class="item"><iframe src="http://player.vimeo.com/video/62122063?title=0&amp;byline=0&amp;portrait=0&amp;color=ffffff" class="iframe_single_page"></iframe></div>
+                        </div>
+                        <!-- Carousel nav -->
+                        <a class="carousel-control left" href="#myCarousel" data-slide="prev"><i class="icon-angle-left"></i></a>
+                        <a class="carousel-control right" href="#myCarousel" data-slide="next"><i class="icon-angle-right"></i></a>
+                    </div>
+                    <!-- Carousel end -->
+                {{else}}
+                    <div class="item">
+                        <img {{bind-attr src="controller.cover"}} alt="" />
+                    </div>
+                {{/if}}
+
+                <div class="block step">
+                    <div class="header">
+                        <label for="editTitle">Title:</label>
+                        {{edit-text value=title class="edit-state" id="editTitle"}}
+                    </div>
+                    <div>
+                        <label for="editDescr">Description:</label>
+                        {{edit-text value=description class="edit-state" id="editDescr"}}
+                    </div>
+                    <div>
+                        <label for="editCover">Cover:</label>
+                        {{view Blog.FileUploadView id="editCover" class="edit-state" name="editCover" contentBinding="content"}}
+                    </div>
+                    <div class="area">
+                        <label for="ediText">Post:</label>
+                        {{edit-textarea value=text class="edit-state" id="editText"}}
+                        <a {{action "createUnit"}} class="btn btn-primary" data-type="cover" href="#">
+                            <i class="icon-ok icon-large"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Main content end -->
+
+        <!-- Right Side -->
+        <div class="right-side span4">
+
+            <div class="block step blog-item visible-desktop visible-tablet">
+                {{#link-to 'projects.create' class="btn btn-success"}} <i class="icon-plus-sign icon-white"></i>   New Poject {{/link-to}}
+            </div>
+
+            <!-- Categories -->
+            <div class="block step visible-desktop visible-tablet">
+                <div class="header">
+                    <h3>Categories</h3>
+                </div>
+
+                <div class="area categories">
+                    <ul>
+                        <li><a href="#">Branding</a></li>
+                        <li><a href="#">Web Design</a></li>
+                        <li><a href="#">Photography</a></li>
+                        <li><a href="#">Illustration</a></li>
+                        <li><a href="#">Arhitecture</a></li>
+                        <li><a href="#">Logos</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Categories end -->
+
+
+            <!-- Instagram Photos -->
+            <div class="block step">
+                <div class="header">
+                    <h3>Instagram Widget</h3>
+                </div>
+                <div class="area">
+                    <ul id="instagram"></ul>
+                </div>
+            </div>
+            <!-- Instagram Photos end -->
+        </div>
+
+        <!-- Right Side end -->
+    </div>
+
+
+
+</div>

@@ -8,7 +8,8 @@ async.series([
 	requireModels,
 	createPosts,
 	createProjects,
-	createContacts
+	createContacts,
+    createAdmins
 ], function(err) {
 	mongoose.disconnect();
 	process.exit(err ? 255 : 0);
@@ -27,6 +28,7 @@ function requireModels(callback) {
 	require('models/post');
 	require('models/project');
 	require('models/contact');
+    require('models/user');
 	async.each(Object.keys(mongoose.models), function(modelName, callback) {
 		mongoose.models[modelName].ensureIndexes(callback);
 	}, callback);
@@ -244,4 +246,29 @@ function createContacts(callback) {
 		var contact = new mongoose.models.Contact(contactData); //so we don't need to reduce arguments to (err, results) from (err, results, affected)
 		contact.save(callback);
 	}, callback);
+}
+
+function createAdmins(callback) {
+    var admins = [
+        {
+            name: "aaa",
+            email: "aaa",
+            password: "111"
+        },
+        {
+            name: "adminka2",
+            email: "admin2",
+            password: "1234"
+        },
+        {
+            name: "adminka3",
+            email: "admin3",
+            password: "1234"
+        }
+    ];
+
+    async.each(admins, function(adminData, callback) {   //this kind of each drops argument "affected" in callback,
+        var admin = new mongoose.models.User(adminData); //so we don't need to reduce arguments to (err, results) from (err, results, affected)
+        admin.save(callback);
+    }, callback);
 }

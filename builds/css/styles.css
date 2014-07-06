@@ -355,6 +355,37 @@ textarea.edit-state {
   height: 512px;
 }
 
+/** Login **/
+
+.cont-outer .row-fluid > .step.block.min > .row-fluid {
+  margin-top: 5%;
+}
+
+.cont-outer .row-fluid .dev-auth {
+  border: 1px dashed;
+}
+
+.cont-outer .row-fluid .dev-auth h4 {
+  padding: 10px;
+}
+
+.cont-outer .row-fluid .dev-auth > form {
+  margin: 5% 7% 10% 0;
+}
+
+.cont-outer .row-fluid .dev-auth > form .control-group:last-child {
+  margin: 0;
+}
+
+.cont-outer .row-fluid .auth-container > div {
+  margin-top: 10%;
+  margin-left: 8%;
+}
+
+.cont-outer .row-fluid .auth-container > div > a {
+  margin-left: 3%;
+}
+
 /** Contact **/
 
 .cont-outer .row-fluid .map {

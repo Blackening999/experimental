@@ -1,0 +1,39 @@
+{
+	"db": "mongodb://localhost/blackening-blog",
+	"db_options": {
+		"server": {
+			"socketOptions": {
+				"keepAlive": 1
+			}
+		}
+	},
+	"port": 3001,
+	"app": {
+		"name": "Blackening's Blog - Travis"
+	},
+	"facebook": {
+		"clientID": "1416385361976291",
+		"clientSecret": "e884c28e648406f6c4d1c65006795850",
+		"callbackURL": "http://localhost:5000/auth/facebook/callback"
+	},
+	"twitter": {
+		"clientID": "9DQyrfrl0IJLHIx78zUeDOWKP",
+		"clientSecret": "bEjpjQVPY2BR04N1eMXprZYZZxyWqZiPvHzejnCmarB1zYvDB5",
+		"callbackURL": "http://127.0.0.1:5000/auth/twitter/callback"
+	},
+	"github": {
+		"clientID": "114f13b287902c175c0d",
+		"clientSecret": "cc03dca23075ae42106c60c37b9101eaf57b520c",
+		"callbackURL": "http://localhost:5000/auth/github/callback"
+	},
+	"google": {
+		"clientID": "532203227096-cbt081lm59i2ha8c1nmi0vrq2o3g4raj.apps.googleusercontent.com",
+		"clientSecret": "jzCdoZbXImvB8hcwutfb5kg7",
+		"callbackURL": "http://localhost:5000/auth/google/callback"
+	},
+	"linkedin": {
+		"clientID": "751ut7uxw66iay",
+		"clientSecret": "pj2rY0061tYNubHr",
+		"callbackURL": "http://localhost:5000/auth/linkedin/callback"
+	}
+}

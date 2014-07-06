@@ -1,0 +1,75 @@
+<!-- Body -->
+<div class="container">
+    <div class="cont-outer">
+
+        <h1>Sign in</h1>
+
+        <div class="sep20"></div>
+
+        <!-- Auth form -->
+        <div class="row-fluid">
+            <div class="span12 step block min">
+                <div class="row-fluid">
+                    <!--<div class="row-fluid">-->
+                    <div class="span6 auth-container">
+                        <h3>Sign in using your existing account</h3>
+
+                        <div>
+                            <a href="/auth/facebook"><i class="icon-facebook icon-4x" style="top: 0px;"></i></a>
+                            <a href="/auth/google"><i class="icon-google-plus icon-4x" style="top: 0px;"></i></a>
+                            <a href="/auth/github"><i class="icon-github icon-4x" style="top: 0px;"></i></a>
+                            <a href="/auth/twitter"><i class="icon-twitter icon-4x" style="top: 0px;"></i></a>
+                            <a href="/auth/linkedin"><i class="icon-linkedin icon-4x" style="top: 0px;"></i></a>
+                            {{#if errorMessage}}
+                                <div class="alert alert-danger">
+                                    <p>
+                                        <strong>Login failed:</strong>
+                                        <code>{{errorMessage}}</code>
+                                    </p>
+                                </div>
+                            {{/if}}
+                        </div>
+                    </div>
+                    <div class="span6 dev-auth">
+                        <h4>Sign in using your inner account</h4>
+
+                        <form class="form-horizontal">
+                            <!--<div class="row-fluid">-->
+                            <div class="control-group">
+                                <label class="control-label" for="email">Name</label>
+
+                                <div class="controls">
+                                    {{input id="name" type="text" value=userName placeholder="Name (Required)" class="input-block-level"}}
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="email">Email</label>
+
+                                <div class="controls">
+                                    {{input id="email" type="text" value=userEmail placeholder="Email (Required)" class="input-block-level"}}
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="email">Password</label>
+
+                                <div class="controls">
+                                    {{input id="password" type="text" value=userPassword placeholder="Password (Required)" class="input-block-level"}}
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <div class="controls">
+                                    <a {{action "authorize" }}href="#" title="Login" class="btn btn-primary btn-medium"
+                                       style="opacity: 1;">Login <i class="icon-angle-right"></i></a>
+                                </div>
+                            </div>
+                            <!--</div>-->
+                        </form>
+                    </div>
+                    <!--</div>-->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Body End -->

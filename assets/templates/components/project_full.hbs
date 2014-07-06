@@ -1,0 +1,36 @@
+<!-- Blog Title & Description -->
+<div {{bind-attr class=":block :step editMode:editing"}}>
+    <div class="header">
+        {{#if editMode}}
+            <label for="editTitle">Title:</label>
+            {{edit-text value=project.title class="edit-state" id="editTitle"}}
+            <div>
+                <label for="editDescr">Description</label>
+                {{edit-text value=project.description class="edit-state" id="editDescr"}}
+            </div>
+            <div>
+                <label for="editCover">Cover</label>
+                {{view Blog.FileUploadView id="editCover" class="edit-state" name="editCover" contentBinding="content"}}
+            </div>
+        {{else}}
+            <h2>{{project.title}}</h2>
+            <a {{action "startEditing"}} class="btn btn-primary" href="#">
+                <i class="icon-pencil icon-large"></i>
+            </a>
+            <a {{action "removeProject"}} class="btn btn-danger" href="#">
+                <i class="icon-trash icon-large"></i>
+            </a>
+        {{/if}}
+    </div>
+    <div class="area">
+        {{#if editMode}}
+            <label for="editPost">Post:</label>
+            {{edit-textarea value=project.text class="edit-state" id="editPost"}}
+            <a {{action "completeEditing"}} class="btn btn-primary" href="#">
+                <i class="icon-ok icon-large"></i></a>
+        {{else}}
+            <p>{{project.text}}</p>
+        {{/if}}
+    </div>
+</div>
+<!-- Blog Title & Description end -->

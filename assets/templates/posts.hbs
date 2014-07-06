@@ -1,0 +1,90 @@
+<div class="cont-outer">
+    <div class="row-fluid blog">
+
+        {{outlet}}
+
+        <!-- Right Side -->
+        <div class="span4 right-side">
+
+            <!-- New post -->
+            <div class="block step blog-item visible-desktop visible-tablet">
+                {{#link-to 'posts.create' class="btn btn-success"}} <i class="icon-plus-sign icon-white"></i> New
+                    Post {{/link-to}}
+            </div>
+
+            <!-- Search -->
+            <div class="block step visible-desktop visible-tablet">
+                <form class="form-search">
+                    <input type="text" placeholder="Search..." class="span12 search-query">
+                    <button type="submit"><i class="icon-search"></i></button>
+                </form>
+            </div>
+            <!-- Search end -->
+
+
+            <!-- Categories -->
+            <div class="block step visible-desktop visible-tablet">
+                <div class="header">
+                    <h3>Categories</h3>
+                </div>
+
+                <div class="area categories">
+                    <ul>
+                        <li><a href="#">Branding</a></li>
+                        <li><a href="#">Web Design</a></li>
+                        <li><a href="#">Photography</a></li>
+                        <li><a href="#">Illustration</a></li>
+                        <li><a href="#">Arhitecture</a></li>
+                        <li><a href="#">Logos</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Categories end -->
+
+
+            <!-- Twitter Widget -->
+            <!-- <div class="block step">
+                 <div class="header">
+                     <h3>Tweets  <i class="icon-twitter"></i></h3>
+                 </div>
+                 <div class="area">
+                     <div id="twitter"></div>
+                 </div>
+             </div> -->
+            <!-- Twitter Widget end -->
+
+
+            <!-- Instagram Photos -->
+            <div class="block step">
+                <div class="header">
+                    <h3>Instagram Widget</h3>
+                </div>
+                <div class="area">
+                    <ul id="instagram"></ul>
+                </div>
+            </div>
+            <!-- Instagram Photos end -->
+
+
+            <!-- Text Widget -->
+            <div class="block step">
+                <div class="header">
+                    <h3>Text Widget</h3>
+                </div>
+                <div class="area">
+                    <p>Hey, you know what? BAB Creative theme is fully responsive & fluid at the same time! Yeah! This
+                        means whatever devices you'll be browsing, the content will always stay perfect, no matter the
+                        resolution! </p><br/>
+
+                    <p><a class="btn btn-success" href="#"><i class="icon-shopping-cart icon-large"></i> Get BAB Theme
+                        Now!</a></p>
+                </div>
+            </div>
+            <!-- Text Widget end -->
+
+        </div>
+        <!-- Right Side end -->
+
+    </div>
+</div>
+<!--Body End -->

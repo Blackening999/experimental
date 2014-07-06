@@ -1,8 +1,9 @@
 Blog.FileUploadView = Ember.TextField.extend({
 	upload: 'uploadFile',
 	type: 'file',
-	attributeBindings: ['name'],
-	change: function(evt) {
+	attributeBindings: ['name', 'data-type'],
+	"data-type": "cover",
+	change: function (evt) {
 		var self = this;
 		var input = evt.target;
 		if (input.files && input.files[0]) {
@@ -10,8 +11,8 @@ Blog.FileUploadView = Ember.TextField.extend({
 				file = input.files[0],
 				fileSize = file.size;
 			if (fileSize < 5242880) {
-				reader.onload = function() {
-					self.sendAction("upload", reader.result);
+				reader.onload = function () {
+					self.sendAction("upload", reader.result, self.$().attr("data-type"));
 				};
 				reader.readAsDataURL(file);
 			} else {

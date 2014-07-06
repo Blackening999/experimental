@@ -1,34 +1,18 @@
-var Post = require('models/post').Post;
-var HttpError = require('error').HttpError;
-var async = require('async');
+module.exports = function(app, passport, auth) {
 
-exports.get = function (req, res) {
-	Post.find({}, function (err, posts) {
-		if (err) throw new HttpError(err);
-		res.send(JSON.stringify({ posts: posts }));
-	})
-};
+	var posts = require('../controllers/posts');
 
-exports.post = function(req, res) {
-	Post.create(req.body.post, function(err, post) {
-		if (err) new HttpError(res);
-		res.send(JSON.stringify({ post: post }));
-	})
-};
+	app.get('/posts', posts.get);
+	app.post('/posts', posts.post);
+	app.put('/posts/:_id', posts.put);
+	app.del('/posts/:_id', posts.del);
 
-exports.put = function(req, res) {
-	Post.update({_id: req.params._id}, req.body.post, function(err, updateRes) {
-		if (err) new HttpError(res);
-		res.send(JSON.stringify(updateRes));
-	});
-};
 
-exports.del = function (req, res) {
-	Post.findById(req.params._id, function(err, post) {
-		if (err) new HttpError(res);
-		post.remove(function(err, removeRes) {
-			if (err) new HttpError(res);
-			res.send(JSON.stringify({ post: removeRes }));
-		});
-	});
+	// app.post('/posts', auth.requiresLogin, posts.create);
+	// app.put('/posts/:postId', auth.requiresLogin, auth.post.hasAuthorization, posts.update);
+	// app.del('/posts/:postId', auth.requiresLogin, auth.post.hasAuthorization, posts.destroy);
+//	app.del('/posts/:postId', auth.requiresLogin, auth.post.hasAuthorization, posts.destroy);
+
+	//Finish with setting up the postId param
+//	app.param('postId', posts.post);
 };

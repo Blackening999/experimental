@@ -1,0 +1,10 @@
+<% layout('layouts/main') -%>
+
+<script type="text/javascript">
+	if (window.location.hash && window.location.hash == '#_=_') {
+		window.location.hash = '';
+	}
+	window.user = <%- user %>
+	window.error = <%- error %>
+    window.toRoute = <%- toRoute %>
+</script>

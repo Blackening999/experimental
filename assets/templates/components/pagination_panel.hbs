@@ -1,0 +1,25 @@
+<!-- Pagination -->
+<div class="pagination visible-desktop visible-tablet">
+    <ul>
+        <li {{bind-attr class="hasPrevious::sel"}}>
+            <a {{action goToPreviousPage}}>&laquo;</a>
+        </li>
+        {{#if showBefore}}
+            {{pagination-page page=1 currentPage=page}}
+            <li class="sel"><a>&hellip;</a></li>
+        {{/if}}
+
+        {{#each pageNumber in visiblePages}}
+            {{pagination-page page=pageNumber currentPage=page}}
+        {{/each}}
+
+        {{#if showAfter}}
+            <li class="sel"><a>&hellip;</a></li>
+            {{pagination-page page=lastPage currentPage=page}}
+        {{/if}}
+        <li {{bind-attr class="hasNext::sel"}}>
+            <a {{action goToNextPage}}>&raquo;</a>
+        </li>
+    </ul>
+</div>
+<!-- Pagination end -->

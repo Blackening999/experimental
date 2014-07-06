@@ -1,18 +1,10 @@
-module.exports = function(app) {
-	app.get('/', require('./main').get);
-	app.get('/posts', require('./posts').get);
-	app.get('/projects', require('./projects').get);
-	app.get('/contacts', require('./contacts').get);
+module.exports = function(app, passport, auth) {
 
-	app.post('/posts', require('./posts').post);
-	app.post('/projects', require('./projects').post);
-	app.post('/contacts', require('./contacts').post);
+	require('./auth')(app, passport, auth);
+	require('./posts')(app, passport, auth);
+	require('./projects')(app, passport, auth);
+	require('./contacts')(app, passport, auth);
 
-	app.put('/posts/:_id', require('./posts').put);
-	app.put('/projects/:_id', require('./projects').put);
-	app.put('/contacts/:_id', require('./contacts').put);
-
-	app.del('/posts/:_id', require('./posts').del);
-	app.del('/projects/:_id', require('./projects').del);
-	app.del('/contacts/:_id', require('./contacts').del);
+	var index = require('../controllers/index');
+	app.get('/', index.render);
 };

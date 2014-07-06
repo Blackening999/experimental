@@ -1,0 +1,121 @@
+<!-- Body -->
+<div class="cont-outer">
+    <!-- Carousel -->
+    <!--<div id="myCarousel" class="carousel carousel-homepage slide">-->
+    <!--<ol class="carousel-indicators">-->
+    <!--<li data-target="#myCarousel" data-slide-to="0" class="active"></li>-->
+    <!--<li data-target="#myCarousel" data-slide-to="1"></li>-->
+    <!--<li data-target="#myCarousel" data-slide-to="2"></li>-->
+    <!--</ol>-->
+    <!-- Carousel items
+    <!--<div class="carousel-inner">-->
+    <!--<div class="active item"><a href="portfolio-4-column.html"><img src="img/blog/carousel/820x512.gif" alt="" /></a></div>-->
+    <!--<div class="item"><iframe src="http://player.vimeo.com/video/62122063?title=0&amp;byline=0&amp;portrait=0&amp;color=ffffff" class="iframe_home"></iframe></div>-->
+    <!--<div class="item"><a href="portfolio-4-column.html"><img src="img/blog/carousel/820x512.gif" alt="" /></a></div>-->
+    <!--</div>-->
+    <!--<!-- Carousel nav -->
+    <!--<a class="carousel-control left" href="#myCarousel" data-slide="prev"><i class="icon-angle-left"></i></a>-->
+    <!--<a class="carousel-control right" href="#myCarousel" data-slide="next"><i class="icon-angle-right"></i></a>-->
+    <!--</div>-->
+    <!-- Carousel end -->
+
+    <!-- Portfolio -->
+    <div class="portfolio clearfix">
+        {{#each recentProjects}}
+            <div class="p1 portfolio-item">
+                <!--<a href="portfolio-4-column.html"></a>-->
+
+                <div class="overlay"></div>
+                <div class="item">
+                    <div class="header">{{title}}</div>
+                    <div class="content">{{description}}</div>
+                </div>
+                <img {{bind-attr src="cover"}} alt=""/>
+            </div>
+        {{/each}}
+    </div>
+    <!-- Portfolio end -->
+
+    <div class="separator visible-desktop"></div>
+    <div class="sep20 hidden-desktop"></div>
+
+    <!-- Call to Action -->
+    <div class="row-fluid action">
+        <div class="span10">
+            <p>Check our categories or subscribe now!</p>
+        </div>
+        <div class="span2">
+            <div class="text-center">
+                <a href="#" title="View Project" class="btn btn-primary btn-large">Subscribe <i
+                        class="icon-angle-right icon-large"></i></a>
+            </div>
+        </div>
+    </div>
+    <!-- Call to Action end -->
+
+    <div class="separator visible-desktop"></div>
+    <div class="sep40 hidden-desktop"></div>
+
+    <!-- Projects -->
+    <div class="row-fluid projects">
+
+        <!-- Project -->
+        <div class="span4 step">
+            <div class="overlay"></div>
+            <a href="portfolio-4-column.html" class="link_button">
+                <i class="icon-link"></i>
+            </a>
+            <a href="img/500x400.gif" class="resize_button fancybox">
+                <i class="icon-fullscreen"></i>
+            </a>
+            <img src="img/332x207.gif" alt=""/>
+
+            <div class="content">
+                <h4><a href="#">JavaScript Creativity</a></h4>
+                <a href="#">Web development</a>
+            </div>
+        </div>
+        <!-- Project end -->
+
+        <!-- Project -->
+        <div class="span4 step">
+            <div class="overlay"></div>
+            <a href="portfolio-4-column.html" class="link_button">
+                <i class="icon-link"></i>
+            </a>
+            <a href="img/500x400.gif" class="resize_button fancybox">
+                <i class="icon-fullscreen"></i>
+            </a>
+            <img src="img/332x207.gif" alt=""/>
+
+            <div class="content">
+                <h4><a href="#">Front-End News</a></h4>
+                <a href="#">Featured</a>
+            </div>
+        </div>
+        <!-- Project end -->
+
+        <!-- Project -->
+        <div class="span4 step">
+            <div class="overlay"></div>
+            <a href="portfolio-4-column.html" class="link_button">
+                <i class="icon-link"></i>
+            </a>
+            <a href="img/500x400.gif" class="resize_button fancybox">
+                <i class="icon-fullscreen"></i>
+            </a>
+            <img src="img/332x207.gif" alt=""/>
+
+            <div class="content">
+                <h4><a href="#">Design Hints</a></h4>
+                <a href="#">Web Design</a>
+            </div>
+        </div>
+        <!-- Project end -->
+
+    </div>
+    <!-- Projects End -->
+
+</div>
+<!--Body End -->
+

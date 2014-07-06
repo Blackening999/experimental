@@ -1,6 +1,24 @@
 require('ember');
 require('ember_data');
+require('ember_oauth2');
+require('ember_simple_auth');
 require('custom_prefs');
+
+
+//Ember.Application.initializer({
+//	name: 'authentication',
+//	initialize: function (container, application) {
+//		container.register('authenticator:googleplus', Blog.GooglePlusAuthenticator);
+//		container.register('authenticator:facebook', Blog.FacebookAuthenticator);
+////		container.register('authenticator:twitter', Blog.TwitterAuthenticator);
+//		container.register('authenticator:github', Blog.GithubAuthenticator);
+//		//here and hereafter comments in the auth modules needs only to give token to server, these comments marked with //*{oat}
+////		container.register('authorizer:custom', Blog.CustomAuthorizer);//*{oat}
+//		Ember.SimpleAuth.setup(container, application, {
+////			authorizerFactory: 'authorizer:custom'//*{oat}
+//		});
+//	}
+//});
 
 Ember.Router.reopen({
 	didTransition: function(data) {

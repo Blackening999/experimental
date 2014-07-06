@@ -18,7 +18,42 @@ Blog.Router.map(function() {
 			this.route('review');
 		} );
 	});
-//	this.route('account');
+	this.route('login');
+});
+
+Blog.ApplicationRoute = Ember.Route.extend({
+	beforeModel: function(transition) {
+		console.log(transition);
+		if (!!window.error) {
+			this.transitionTo("login");
+		}
+	},
+	model: function() {
+		var user = {
+			name: window.user ? window.user.name : "Guest",
+			avatar: window.user ? window.user.avatar : "",
+			provider: window.user ? window.user.provider : ""
+		};
+		console.log(user);
+		window.user = null;
+//        if (!!window.toRoute) this.transitionTo(window.toRoute);
+		return this.store.createRecord('user', user);
+	}
+});
+//App.ProtectedRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRouteMixin); protected route
+
+Blog.LoginRoute = Ember.Route.extend({
+//	beforeModel: function(transition) {
+//		console.log(transition);
+//
+//
+//	},
+    model: function() {
+        return this.modelFor('application');
+    }
+//	setupController: function(controller, model) {
+//		controller.set('errorMessage', null);
+//	}
 });
 
 Blog.IndexRoute = Ember.Route.extend({
@@ -46,20 +81,22 @@ Blog.PostRoute = Ember.Route.extend({
 });
 
 Blog.PostsCreateRoute = Ember.Route.extend(Blog.CreateUnitMixin, {
-	actions: {
-		uploadFile: function(params) {
-			this.set('controller.cover', params);
-		}
+	model: function() {
+		return this.store.createRecord("post");
 	}
 });
 
 Blog.ProjectsCreateRoute = Ember.Route.extend(Blog.CreateUnitMixin, {
-	actions: {
-		uploadFile: function(params) {
-			this.set('controller.cover', params);
-		}
+	model: function() {
+		return this.store.createRecord("project");
 	}
 });
+
+//Blog.ContactsCreateRoute = Ember.Route.extend(Blog.CreateUnitMixin, {
+//	model: function() {
+//		return this.store.createRecord("contact");
+//	}
+//});
 
 Blog.PostEditRoute = Ember.Route.extend({
 	model: function() {

@@ -1,0 +1,41 @@
+<!-- Blog Items -->
+<div class="span4 blog-items first-set">
+
+    <!-- Mobile Hidden Elements -->
+
+    <!-- Search -->
+    <div class="block step blog-item hidden-desktop hidden-tablet">
+        <form class="form-search">
+            <input type="text" placeholder="Search..." class="span12 search-query">
+            <button type="submit"><i class="icon-search"></i></button>
+        </form>
+    </div>
+    <!-- Search end -->
+
+
+    <!-- Categories -->
+    <div class="block step blog-item hidden-desktop hidden-tablet">
+        <select name="categories" class="categories">
+            <option>JavaScript</option>
+            <option>Web Design</option>
+            <option>HTML</option>
+            <option>CSS</option>
+            <option>Architecture</option>
+            <option>Logos</option>
+        </select>
+    </div>
+
+    {{#each firstColumn}}
+        {{post-thumb post=this removePost="removePost"}}
+    {{/each}}
+
+    {{#if showPagination}}
+        {{pagination-panel page=page pages=pages}}
+    {{/if}}
+</div>
+
+<div class="span4 blog-items">
+    {{#each secondColumn}}
+        {{post-thumb post=this removePost="removePost" }}
+    {{/each}}
+</div>

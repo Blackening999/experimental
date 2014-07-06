@@ -1,0 +1,19 @@
+<div class="blog-item step">
+    <div class="overlay"></div>
+            {{#link-to 'post' post class="link_button"}}
+    <i class="icon-link"></i>
+            {{/link-to}}
+    <a {{bind-attr href="post.cover"}} class="resize_button fancybox">
+        <i class="icon-fullscreen"></i>
+    </a>
+    <img {{bind-attr src="post.cover"}} alt="" />
+    <div class="content">
+        <h4>{{#link-to 'post' post title=post.title}} {{post.title}} {{/link-to}}</h4>
+        <i class="icon-folder-open"></i>
+        <a href="#" {{bind-attr title="post.category"}}> {{post.category}} </a>
+        <span class="action-buttons">
+            <a {{action "removePost"}} class="btn btn-danger" href="#">
+                <i class="icon-trash icon-large"></i></a>
+        </span>
+    </div>
+</div>

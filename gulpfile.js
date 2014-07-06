@@ -1,6 +1,5 @@
 var gulp         = require('gulp');
 var browserify   = require('gulp-browserify');
-var handlebars   = require('gulp-handlebars');
 var myth         = require('gulp-myth');
 var hint         = require('gulp-jshint');
 var concat       = require('gulp-concat');
@@ -8,18 +7,41 @@ var cache        = require('gulp-cache');
 var gif          = require('gulp-if');
 var uglify       = require('gulp-uglify');
 var imagemin     = require('gulp-imagemin');
-var defineModule = require('gulp-define-module');
 var declare      = require('gulp-declare');
+var path         = require('path');
+var streamqueue  = require('streamqueue');
+var hbs          = require('gulp-ember-handlebars');
+
 var paths = {
 	scripts: ['assets/js/**/*.js', 'assets/mixins/*.js'],
 	styles: ['assets/styles/**/*.css'],
 	images: ['assets/images/**/*'],
-	hbs: ['assets/templates/*.hbs'],
+	hbs: ['assets/templates/**/*.hbs'],
 	tests: ['assets/tests/*.**'],
-	mixins: ['assets/mixins/*.js']
+	mixins: ['assets/mixins/*.js'],
+    templatesRoot: 'assets/templates/'
 };
 
 var debug = process.env.NODE_ENV !== 'production';
+
+gulp.task("app", function () {
+    var stream = streamqueue({ objectMode: true });
+    stream.queue(gulp.src('builds/js/all.js'));
+    stream.queue(
+        gulp
+            .src('assets/templates/**/*.hbs')
+            .pipe(hbs({
+                outputType: "browser",
+                processName: function (templateName) {
+                    return templateName.replace("_", "-");
+                }
+            }))
+            .pipe(concat("builds/templates.js"))
+    );
+    return stream.done()
+        .pipe(concat("app.js"))
+        .pipe(gulp.dest("builds/js"))
+});
 
 gulp.task('concat', function() {
 	return gulp.src(paths.scripts)
@@ -38,17 +60,22 @@ gulp.task('images', function() {
 		.pipe(gulp.dest('builds/img'));
 });
 
-gulp.task('templates', function(){
-	return gulp.src([paths.hbs])
-		.pipe(handlebars())
-		.pipe(declare({
-			root: 'module.exports', // Declare as properties of module.exports
-			noRedeclare: true // Avoid duplicate output
-		}))
-		.pipe(concat('templates.js'))
-		.pipe(defineModule('node'))
-		.pipe(gulp.dest('builds'));
-});
+//gulp.task('templates', function() {
+//	return gulp.src(paths.hbs)
+//		.pipe(handlebars())
+//        .pipe(defineModule('plain', {
+//            wrapper: 'Ember.TEMPLATES["<%= templateName %>"] = <%= handlebars %>',
+//            context: function(context) {
+//                var file = context.file;
+//                var name = path.relative(file.cwd, file.path)
+//                    .slice(0, -path.extname(file.path).length)
+//                    .replace(paths.templatesRoot, "");
+//                return { templateName: name };
+//            }
+//        }))
+//		.pipe(concat('templates.js'))
+//		.pipe(gulp.dest('builds'));
+//});
 
 gulp.task('qunit-css', function() {
 	return gulp.src('bower_components/qunit/qunit/qunit.css')
@@ -111,13 +138,6 @@ gulp.task('scripts', ['hint', 'mixins', 'concat'], function () { //'templates'
 					path: 'bower_components/handlebars/handlebars.js',
 					exports: 'Handlebars'
 				},
-//				bootstrap: {
-//					path: 'bower_components/bootstrap/dist/js/bootstrap.js',
-//					exports: 'bootstrap',
-//					depends: {
-//						jquery: '$'
-//					}
-//				},
 				mixins: {
 					path: 'assets/prebuild/mixins.js',
 					exports: 'mixins',
@@ -145,13 +165,17 @@ gulp.task('scripts', ['hint', 'mixins', 'concat'], function () { //'templates'
 						handlebars: 'Handlebars'
 					}
 				},
-//				fancybox: {
-//					path: 'assets/prebuild/fancybox.js',
-//					exports: 'fancybox',
-//					depends: {
-//						jquery: '$'
-//					}
-//				},
+				ember_oauth2: {
+					path: 'bower_components/ember-oauth2/dist/ember.oauth2.js',
+					exports: 'ember_oauth2',
+					depends: {
+						jquery: '$'
+					}
+				},
+				ember_simple_auth: {
+					path: 'bower_components/ember-simple-auth/ember-simple-auth',
+					exports: 'ember_simple_auth'
+				},
 				custom_prefs: {
 					path: 'assets/prebuild/custom.js',
 					exports: 'custom_prefs',
@@ -179,11 +203,11 @@ gulp.task('scripts', ['hint', 'mixins', 'concat'], function () { //'templates'
 		.pipe(gulp.dest('builds/js'));
 });
 
-gulp.task('default', ['styles', 'custom_prefs', 'scripts', 'qunit-css', 'qunit-js', 'tests'], function () { });
+gulp.task('default', ['styles', 'custom_prefs', 'scripts', 'qunit-css', 'qunit-js', 'tests', 'app'], function () { });
 
 gulp.task('watch', function () {
 	gulp.watch(paths.scripts, ['mixins', 'scripts']);
 	gulp.watch(paths.tests, ['tests']);
-//	gulp.watch('assets/**/*.hbs', ['scripts']);
+	gulp.watch(paths.hbs, ['scripts']);
 	gulp.watch(paths.styles, ['styles']);
 });

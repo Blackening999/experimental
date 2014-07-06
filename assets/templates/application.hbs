@@ -1,0 +1,48 @@
+<header class="container">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="brand_logo" href="index.html"></a>
+
+            <div class="nav-collapse collapse">
+                <ul class="nav pull-right">
+                    {{#link-to 'index' title='Home' tagName='li'}}<a>Home</a>{{/link-to}}
+                    {{#link-to 'posts' title='Blog' tagName='li'}}<a>Blog</a>{{/link-to}}
+                    {{#link-to 'projects' title='Portfolio' tagName='li'}}<a>Portfolio</a>{{/link-to}}
+                    {{#link-to 'contacts' title='About' tagName='li'}}<a>About</a>{{/link-to}}
+                    {{#if userAuthenticated}}
+                        <li><a {{action "logout"}} href="#">Logout</a></li>
+                    {{else}}
+                        {{#link-to 'login' title='Login' tagName='li'}}<a>Login</a>{{/link-to}}
+                    {{/if}}
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    {{outlet}}
+</div>
+<!-- hardcode should be here -->
+<footer>
+    <div class="container">
+        <div class="footer_inner clearfix">
+            <div class="copyright">Blog by <a href="http://www.templatestock.net" target="_blank">Vladimir Katansky</a>
+            </div>
+            <div class="pull-right social_icons">
+                <!-- <a href="http://twitter.com/template_stock"><i class="icon-twitter icon-2x"></i></a> -->
+                <a href="http://facebook.com/template_stock"><i class="icon-facebook icon-2x"></i></a>
+                <a href="#"><i class="icon-google-plus icon-2x"></i></a>
+                <!-- <a href="http://pinterest.com/templatestock"><i class="icon-pinterest icon-2x"></i></a> -->
+                <a href="http://github.com/Blackening999"><i class="icon-github icon-2x"></i></a>
+                <a href="#"><i class="icon-linkedin icon-2x"></i></a>
+                <a href="#" class="go-top"><i class="icon-angle-up icon-2x"></i></a>
+            </div>
+        </div>
+    </div>
+</footer>
+

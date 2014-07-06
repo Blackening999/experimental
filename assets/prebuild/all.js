@@ -1,6 +1,24 @@
 require('ember');
 require('ember_data');
+require('ember_oauth2');
+require('ember_simple_auth');
 require('custom_prefs');
+
+
+//Ember.Application.initializer({
+//	name: 'authentication',
+//	initialize: function (container, application) {
+//		container.register('authenticator:googleplus', Blog.GooglePlusAuthenticator);
+//		container.register('authenticator:facebook', Blog.FacebookAuthenticator);
+////		container.register('authenticator:twitter', Blog.TwitterAuthenticator);
+//		container.register('authenticator:github', Blog.GithubAuthenticator);
+//		//here and hereafter comments in the auth modules needs only to give token to server, these comments marked with //*{oat}
+////		container.register('authorizer:custom', Blog.CustomAuthorizer);//*{oat}
+//		Ember.SimpleAuth.setup(container, application, {
+////			authorizerFactory: 'authorizer:custom'//*{oat}
+//		});
+//	}
+//});
 
 Ember.Router.reopen({
 	didTransition: function(data) {
@@ -47,7 +65,6 @@ Blog.Store = DS.Store.extend({
 	revision: 12,
 	adapter: DS.RESTAdapter
 });
-
 Blog.Router.map(function() {
 	this.resource('posts', { path: '/posts'}, function() {
 		this.resource('post', { path: ':post_id' }, function() {
@@ -68,7 +85,42 @@ Blog.Router.map(function() {
 			this.route('review');
 		} );
 	});
-//	this.route('account');
+	this.route('login');
+});
+
+Blog.ApplicationRoute = Ember.Route.extend({
+	beforeModel: function(transition) {
+		console.log(transition);
+		if (!!window.error) {
+			this.transitionTo("login");
+		}
+	},
+	model: function() {
+		var user = {
+			name: window.user ? window.user.name : "Guest",
+			avatar: window.user ? window.user.avatar : "",
+			provider: window.user ? window.user.provider : ""
+		};
+		console.log(user);
+		window.user = null;
+//        if (!!window.toRoute) this.transitionTo(window.toRoute);
+		return this.store.createRecord('user', user);
+	}
+});
+//App.ProtectedRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRouteMixin); protected route
+
+Blog.LoginRoute = Ember.Route.extend({
+//	beforeModel: function(transition) {
+//		console.log(transition);
+//
+//
+//	},
+    model: function() {
+        return this.modelFor('application');
+    }
+//	setupController: function(controller, model) {
+//		controller.set('errorMessage', null);
+//	}
 });
 
 Blog.IndexRoute = Ember.Route.extend({
@@ -96,20 +148,22 @@ Blog.PostRoute = Ember.Route.extend({
 });
 
 Blog.PostsCreateRoute = Ember.Route.extend(Blog.CreateUnitMixin, {
-	actions: {
-		uploadFile: function(params) {
-			this.set('controller.cover', params);
-		}
+	model: function() {
+		return this.store.createRecord("post");
 	}
 });
 
 Blog.ProjectsCreateRoute = Ember.Route.extend(Blog.CreateUnitMixin, {
-	actions: {
-		uploadFile: function(params) {
-			this.set('controller.cover', params);
-		}
+	model: function() {
+		return this.store.createRecord("project");
 	}
 });
+
+//Blog.ContactsCreateRoute = Ember.Route.extend(Blog.CreateUnitMixin, {
+//	model: function() {
+//		return this.store.createRecord("contact");
+//	}
+//});
 
 Blog.PostEditRoute = Ember.Route.extend({
 	model: function() {
@@ -267,6 +321,27 @@ Blog.ProjectFullComponent = Ember.Component.extend({
 		}
 	}
 });
+Blog.ApplicationController = Ember.ObjectController.extend({
+	userAuthenticated: function() {
+		return !(this.get("model.name") === "Guest");
+	}.property("name"),
+    actions: {
+        logout: function() {
+            var $this = this;
+            Ember.$.ajax({
+                url:         '/signout',
+                type:        'GET',
+                contentType: 'application/json'
+            }).then(function(res) {
+                $this.get("model").set("name", "Guest");
+                $this.transitionToRoute(res.toRoute);
+            }, function(xhr, status, error) {
+                console.log(error);
+            });
+        }
+    }
+});
+
 Blog.IndexController = Ember.ArrayController.extend({
 	logo: '',
 	javascriptCreativityCover: '',
@@ -275,6 +350,38 @@ Blog.IndexController = Ember.ArrayController.extend({
 	recentProjects: function() {
 		return this.get('content').slice(0, 6);
 	}.property('content.[]')
+});
+Blog.LoginController = Ember.Controller.extend(Ember.SimpleAuth.LoginControllerMixin, {
+    userName: "",
+    userEmail: "",
+    userPassword: "",
+	actions: {
+        authorize: function() {
+            var $this = this;
+            $.ajax({
+                url: '/users/session',
+                type: 'POST',
+                data: JSON.stringify({
+                    name: $this.get('userName'),
+                    email: $this.get('userEmail'),
+                    password: $this.get('userPassword')
+                }),
+                contentType: 'application/json'
+            }).then(function(res) {
+                var model = $this.get("model");
+                model.setProperties({
+                    name: res.name,
+                    email: res.email
+                });
+                $this.transitionToRoute("application");
+            }, function (xhr, status, error) {
+                console.log(error);
+            });
+        },
+		sessionAuthenticationFailed: function(error) {
+			this.controller.set('errorMessage', error);
+		}
+	}
 });
 Blog.PostController = Ember.ObjectController.extend({
 	actions: {
@@ -356,7 +463,7 @@ Blog.ProjectsIndexController = Ember.ArrayController.extend({
 Blog.Contact = DS.Model.extend({
 	name: DS.attr('string'),
 	direction: DS.attr('string'),
-	age: DS.attr(),
+	age: DS.attr('number'),
 	skills: DS.attr(),
 	photo: DS.attr('string', {defaultValue: "/img/500x400.gif"}),
 	portfolio: DS.attr()
@@ -378,6 +485,385 @@ Blog.Project = DS.Model.extend({
 	cover: DS.attr('string', {defaultValue: "/img/500x400.gif"}),
 	items: DS.attr()
 });
+Blog.User = DS.Model.extend({
+	name: DS.attr('string'),
+	email: DS.attr('string'),
+	avatar: DS.attr('string'),
+	comments: []
+});
+//App.CartSerializer = DS.ActiveModelSerializer
+//    .extend(DS.EmbeddedRecordsMixin)
+//    .extend{
+//    attrs: {
+//        // thanks EmbeddedRecordsMixin!
+//        items: {serialize: 'ids', deserialize: 'ids'}
+//    }
+//});
+//
+//App.Cart = DS.Model.extend({
+//    items: DS.hasMany('item', {async: true})
+//});
+//
+//App.Item = DS.Model.extend({
+//    cart: DS.belongsTo('item', {async: true})
+//});
+Blog.FacebookAuthenticator = Ember.SimpleAuth.Authenticators.Base.extend({
+	restore: function(properties) {
+		return new Ember.RSVP.Promise(function(resolve, reject) {
+			if (!Ember.isEmpty(properties.accessToken)) {
+				resolve(properties);
+			} else {
+				reject();
+			}
+		});
+	},
+	get_picture: function(userId) {
+		return new Ember.RSVP.Promise(function(resolve, reject) {
+			Ember.$.ajax({
+				url: '/facebook/picture/' + userId,
+				type: 'GET',
+				contentType: 'application/json'
+			}).then(function(res) {
+				resolve(res);
+			}, function (xhr, status, error) {
+				console.log(error);
+				reject(error);
+			});
+		});
+	},
+	get_info: function(access_token) {
+		var _this = this;
+		return new Ember.RSVP.Promise(function(resolve, reject) {
+			Ember.$.ajax({
+				url:         'https://graph.facebook.com/me?access_token=' + access_token,
+				type:        'GET',
+				contentType: 'application/json'
+			}).then(function(response) {
+				var resultObj = response;
+				resultObj.accessToken = access_token;
+				_this.get_picture(response.id).then(function(picture) {
+					resultObj.picture = picture;
+					resolve(resultObj);
+				}, function(rej) {
+					console.log(rej);
+				});
+			}, function(xhr, status, error) {
+				console.log(error);
+				reject(error);
+			});
+		});
+	},
+	authenticate: function() {
+		var _this = this;
+		return new Ember.RSVP.Promise(function(resolve, reject) {
+			Blog.oauth.on('success', function(stateObj) {
+				var access_token = this.getAccessToken();
+				Ember.run(function() {
+					_this.get_info(access_token).then(
+						function(resp) {
+							console.log(resp);
+							resolve(resp);
+						},
+						function(rej) {
+							reject(rej);
+						}
+					);
+				});
+			});
+			Blog.oauth.on('error', function(err) { reject(err.error);});
+			Blog.oauth.authorize();
+		});
+	},
+	invalidate: function() {
+		return new Ember.RSVP.Promise(function(resolve) {
+			// Do something with your API
+			resolve();
+		});
+	}
+});
+Blog.GithubAuthenticator = Ember.SimpleAuth.Authenticators.Base.extend({
+	restore: function(properties) {
+		return new Ember.RSVP.Promise(function(resolve, reject) {
+			if (!Ember.isEmpty(properties.accessToken)) {
+				resolve(properties);
+			} else {
+				reject();
+			}
+		});
+	},
+	get_picture: function(userId) {
+		return new Ember.RSVP.Promise(function(resolve, reject) {
+			Ember.$.ajax({
+				url: '/facebook/picture/' + userId,
+				type: 'GET',
+				contentType: 'application/json'
+			}).then(function(res) {
+				resolve(res);
+			}, function (xhr, status, error) {
+				console.log(error);
+				reject(error);
+			});
+		});
+	},
+	get_info: function(access_token) {
+		var _this = this;
+		return new Ember.RSVP.Promise(function(resolve, reject) {
+			Ember.$.ajax({
+				url:         'https://api.github.com/user?access_token=' + access_token,
+				type:        'GET',
+				contentType: 'application/json'
+			}).then(function(response) {
+				resolve(response);
+//				var resultObj = response;
+//				resultObj.accessToken = access_token;
+//				_this.get_picture(response.id).then(function(picture) {
+//					resultObj.picture = picture;
+//					resolve(resultObj);
+//				}, function(rej) {
+//					console.log(rej);
+//				});
+			}, function(xhr, status, error) {
+				console.log(error);
+				reject(error);
+			});
+		});
+	},
+	authenticate: function() {
+		var _this = this;
+		return new Ember.RSVP.Promise(function(resolve, reject) {
+
+				Ember.$.ajax({
+					url:         '/github/auth',
+					type:        'GET',
+					contentType: 'application/json'//,
+//					data: {
+//						authUri: Ember.OAuth2.config.github.authBaseUri
+//					}
+				}).then(function(response) {
+					console.log(response);
+//					resolve(response);
+				}, function(xhr, status, error) {
+					console.log(error);
+					reject(error);
+				});
+
+//			Blog.oauth.on('success', function(stateObj) {
+//				var access_token = this.getAccessToken();
+//				console.log(stateObj);//git
+//				Ember.run(function() {
+//					_this.get_info(access_token).then(
+//						function(resp) {
+//							console.log(resp);
+////							resolve(resp);
+//						},
+//						function(rej) {
+//							reject(rej);
+//						}
+//					);
+//				});
+//			});
+//			Blog.oauth.on('error', function(err) {
+//				reject(err.error);
+//			});
+//			Blog.oauth.authorize();
+		});
+	},
+	invalidate: function() {
+		return new Ember.RSVP.Promise(function(resolve) {
+			// Do something with your API
+			resolve();
+		});
+	}
+});
+
+Blog.GooglePlusAuthenticator = Ember.SimpleAuth.Authenticators.Base.extend({
+	restore: function(data) {
+		return new Ember.RSVP.Promise(function(resolve, reject) {
+			if (!Ember.isEmpty(data.token)) {
+				resolve(data);
+			} else {
+				reject();
+			}
+		});
+	},
+
+	get_info: function(access_token) {
+		return new Ember.RSVP.Promise(function(resolve, reject) {
+			Ember.$.ajax({
+				url:         'https://www.googleapis.com/oauth2/v2/userinfo?access_token=' + access_token,
+				type:        'GET',
+				contentType: 'application/json'
+			}).then(function(response) {
+				resolve (response);
+			}, function(xhr, status, error) {
+				console.log(error);
+				reject(error);
+			});
+		});
+	},
+
+	authenticate: function(credentials) {
+		var _this = this;
+		return new Ember.RSVP.Promise(function(resolve, reject) {
+			// Setup handlers
+			Blog.oauth.on('success', function(stateObj) {
+				console.log(stateObj);
+				// Setup the callback to resolve this function
+				var token = this.getAccessToken();
+				// Get all the user info
+				_this.get_info(token).then(
+					function(resp) {
+						console.log(resp);
+						resolve({ token: token,
+							userEmail: resp.email,
+							userFn: resp.given_name,
+							userLn: resp.family_name,
+							userPic: resp.picture,
+							userGender: resp.gender
+						});
+					},
+					function(rej) {
+						reject(rej);
+					}
+				);
+			});// oauth.on
+			Blog.oauth.on('error', function(err) { reject(err.error);});
+			Blog.oauth.authorize();
+		});// return
+	},
+
+	invalidate: function() {
+		var _this = this;
+		return new Ember.RSVP.Promise(function(resolve) {
+			// Do something with your API
+			resolve();
+		});
+	}
+});
+Ember.OAuth2.config = {
+	google_plus: {
+		clientId: "532203227096-cbt081lm59i2ha8c1nmi0vrq2o3g4raj.apps.googleusercontent.com",
+		authBaseUri: 'https://accounts.google.com/o/oauth2/auth',
+		redirectUri: 'http://localhost:5000/redirect',
+		scope: 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile'
+	},
+	facebook: {
+		clientId: '1416385361976291',
+		authBaseUri: 'https://www.facebook.com/dialog/oauth',
+		redirectUri: 'http://localhost:5000/redirect',
+		scope: 'email'
+	},
+//	twitter: {
+//		clientId: '9DQyrfrl0IJLHIx78zUeDOWKP',
+//		authBaseUri: "https://api.twitter.com/oauth/authenticate",
+//		redirectUri: "https://localhost:5000/redirect",
+//		scope: 'public'
+//	},
+	github: {
+		clientId: '114f13b287902c175c0d',
+		authBaseUri: 'https://github.com/login/oauth/authorize',
+		redirectUri: 'http://localhost:5000/redirect'
+	}
+};
+
+//FB.init({ appId: Ember.OAuth2.config.facebook.clientId });
+
+//Blog.CustomAuthorizer = Ember.SimpleAuth.Authorizers.Base.extend({
+//	authorize: function(jqXHR, requestOptions) {
+//		if (this.get('session.isAuthenticated') && !Ember.isEmpty(this.get('session.token'))) {
+//			jqXHR.setRequestHeader('Authorization', 'Token: ' + this.get('session.token'));
+//		}
+//	}
+//});//*{oat}
+//Blog.TwitterAuthenticator = Ember.SimpleAuth.Authenticators.Base.extend({
+//	restore: function(properties) {
+//		return new Ember.RSVP.Promise(function(resolve, reject) {
+//			if (!Ember.isEmpty(properties.accessToken)) {
+//				resolve(properties);
+//			} else {
+//				reject();
+//			}
+//		});
+//	},
+////	get_picture: function(userId) {
+////		return new Ember.RSVP.Promise(function(resolve, reject) {
+////			Ember.$.ajax({
+////				url: '/facebook/picture/' + userId,
+////				type: 'GET',
+////				contentType: 'application/json'
+////			}).then(function(res) {
+////				resolve(res);
+////			}, function (xhr, status, error) {
+////				console.log(error);
+////				reject(error);
+////			});
+////		});
+////	},
+//	get_info: function(access_token) {
+//		var _this = this;
+//		return new Ember.RSVP.Promise(function(resolve, reject) {
+//			Ember.$.ajax({
+//				url:         'https://graph.facebook.com/me?access_token=' + access_token,
+//				type:        'GET',
+//				contentType: 'application/json'
+//			}).then(function(response) {
+//				var resultObj = response;
+//				resultObj.accessToken = access_token;
+//				_this.get_picture(response.id).then(function(picture) {
+//					resultObj.picture = picture;
+//					resolve(resultObj);
+//				}, function(rej) {
+//					console.log(rej);
+//				});
+//			}, function(xhr, status, error) {
+//				console.log(error);
+//				reject(error);
+//			});
+//		});
+//	},
+//	authenticate: function() {
+//		var _this = this;
+//		return new Ember.RSVP.Promise(function(resolve, reject) {
+//
+//				Ember.$.ajax({
+//					url:         '/twitter/auth',
+//					type:        'GET',
+//					contentType: 'application/json'
+//				}).then(function(response) {
+//					console.log(response);
+//				}, function(reject) {
+//					console.log(reject);
+//				});
+//
+//
+//
+////			Blog.oauth.on('success', function(stateObj) {
+////				var access_token = this.getAccessToken();
+////				console.log(stateObj);
+////				Ember.run(function() {
+////					_this.get_info(access_token).then(
+////						function(resp) {
+////							console.log(resp);
+////							resolve(resp);
+////						},
+////						function(rej) {
+////							reject(rej);
+////						}
+////					);
+////				});
+////			});
+////			Blog.oauth.on('error', function(err) { reject(err.error);});
+////			Blog.oauth.authorize();
+//		});
+//	},
+//	invalidate: function() {
+//		return new Ember.RSVP.Promise(function(resolve) {
+//			// Do something with your API
+//			resolve();
+//		});
+//	}
+//});
+
 Blog.EditTextView = Ember.TextField.extend({
 	didInsertElement: function() {
 		this.$().focus();
@@ -395,8 +881,9 @@ Ember.Handlebars.helper('edit-textarea', Blog.EditTextAreaView);
 Blog.FileUploadView = Ember.TextField.extend({
 	upload: 'uploadFile',
 	type: 'file',
-	attributeBindings: ['name'],
-	change: function(evt) {
+	attributeBindings: ['name', 'data-type'],
+	"data-type": "cover",
+	change: function (evt) {
 		var self = this;
 		var input = evt.target;
 		if (input.files && input.files[0]) {
@@ -404,8 +891,8 @@ Blog.FileUploadView = Ember.TextField.extend({
 				file = input.files[0],
 				fileSize = file.size;
 			if (fileSize < 5242880) {
-				reader.onload = function() {
-					self.sendAction("upload", reader.result);
+				reader.onload = function () {
+					self.sendAction("upload", reader.result, self.$().attr("data-type"));
 				};
 				reader.readAsDataURL(file);
 			} else {
@@ -415,26 +902,27 @@ Blog.FileUploadView = Ember.TextField.extend({
 		}
 	}
 });
+//Blog.NameFieldView = Ember.TextField.extend({
+//    didInsertElement: function() {
+//        this.$().focus();
+//    }
+//});
+//
+//Ember.Handlebars.helper('edit-todo', Blog.NameFieldView);
 Blog.CreateUnitMixin = Ember.Mixin.create({
 	actions: {
 		createUnit: function() {
-			var _this = this, type = this.get("currentModel.type.typeKey");
-			var controller = _this.get('controller'),
-				defaultParams = ['title', 'description', 'category', 'cover', 'text'], params = {};
-			for (var i = 0; i < defaultParams.length; i++) {
-				if (controller.hasOwnProperty(defaultParams[i])) {
-					params[defaultParams[i]] = controller.get(defaultParams[i]).trim();
-				}
-			}
-
-			var unit = controller.store.createRecord(type, params);
-			controller.setProperties({ title: "", description: "", category: "", text: "", uploadingFile: "" });
-			unit.save().then(function() {
+			var _this = this,  model = this.get("controller.model"),
+			type = model.get('constructor.typeKey');
+			model.save().then(function() {
 				_this.transitionTo("/" + type + "s");
 			}, function(reason) {
 				console.log("Failed to create " + type + ". Reason: " + reason);
-				unit.rollback();
+				model.rollback();
 			});
+		},
+		uploadFile: function(params, type) {
+			this.set('controller.' + type, params);
 		}
 	}
 });

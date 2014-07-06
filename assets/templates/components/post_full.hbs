@@ -1,0 +1,126 @@
+<!-- Blog Title & Description -->
+<div {{bind-attr class=":block :step editMode:editing"}}>
+    <div class="header">
+        {{#if editMode}}
+            <label for="editTitle">Title:</label>
+            {{edit-text value=post.title class="edit-state" id="editTitle"}}
+            <div>
+                <label for="editDescr">Description</label>
+                {{edit-text value=post.description class="edit-state" id="editDescr"}}
+            </div>
+            <div>
+                <label for="editCat">Category:</label>
+                {{edit-text value=post.category class="edit-state" id="editCat"}}
+            </div>
+            <div>
+                <label for="editCover">Cover</label>
+                {{view Blog.FileUploadView id="editCover" class="edit-state" name="editCover" contentBinding="content"}}
+            </div>
+        {{else}}
+            <h2>{{post.title}}</h2>
+            <a {{action "startEditing"}} class="btn btn-primary" href="#">
+                <i class="icon-pencil icon-large"></i>
+            </a>
+        {{/if}}
+    </div>
+    <div class="area">
+        {{#if editMode}}
+            <label for="editArea">Post:</label>
+            {{edit-textarea value=post.text class="edit-state" id="editArea"}}
+            <a {{action "completeEditing"}} class="btn btn-primary" href="#">
+                <i class="icon-ok icon-large"></i></a>
+        {{else}}
+            <p>{{post.text}}</p>
+        {{/if}}
+    </div>
+</div>
+<!-- Blog Title & Description end -->
+
+<!-- Comments
+<div class="block step">
+    <div class="header">
+        <h3>4 Comments</h3>
+    </div>
+    <div class="area">
+
+        #Comments
+        <ul class="media-list">
+            <li class="media">
+                <a class="pull-left" href="#">
+                    <img class="media-object" src="img/blog/authors/64x64.gif" alt="">
+                </a>
+                <div class="media-body">
+                    <div class="comment-head">
+                        <h4 class="media-heading">Valarie Jacki</h4>
+                        <div class="date">21/Feb/2013</div>
+                    </div>
+                    <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
+                    #Nested media object
+                    <div class="media">
+                        <a class="pull-left" href="#">
+                            <img class="media-object" src="img/blog/authors/64x64.gif" alt="">
+                        </a>
+                        <div class="media-body">
+                            <div class="comment-head">
+                                <h4 class="media-heading">Cory Nigellus</h4>
+                                <div class="date">21/Feb/2013</div>
+                            </div>
+                            <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
+                            #Nested media object
+                            <div class="media">
+                                <a class="pull-left" href="#">
+                                    <img class="media-object" src="img/blog/authors/64x64.gif" alt="">
+                                </a>
+                                <div class="media-body">
+                                    <div class="comment-head">
+                                        <h4 class="media-heading">Alexina Kailee</h4>
+                                        <div class="date">21/Feb/2013</div>
+                                    </div>
+                                    <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    #Nested media object
+                    <div class="media">
+                        <a class="pull-left" href="#">
+                            <img class="media-object" src="img/blog/authors/64x64.gif" alt="">
+                        </a>
+                        <div class="media-body">
+                            <div class="comment-head">
+                                <h4 class="media-heading">Garret Ozzy</h4>
+                                <div class="date">21/Feb/2013</div>
+                            </div>
+                            <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        #Comments end
+    </div>
+</div> -->
+
+<!-- Comments form
+<div class="block step clearfix">
+    <div class="header">
+        <h3>Leave a Comment</h3>
+    </div>
+    <div class="area">
+        <form class="form">
+            <div class="row-fluid">
+                <div class="control-group span6">
+                    <input id="name" type="text" placeholder="Name (Required)" class="input-block-level">
+                </div>
+                <div class="control-group span6">
+                    <input id="email" type="text" placeholder="Email (Required)" class="input-block-level">
+                </div>
+            </div>
+            <div class="row-fluid">
+                <textarea rows="6" placeholder="Your Comment" class="span12"></textarea>
+            </div>
+            <button class="btn btn-primary pull-right" type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+-->
