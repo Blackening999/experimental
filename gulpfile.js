@@ -60,23 +60,6 @@ gulp.task('images', function() {
 		.pipe(gulp.dest('builds/img'));
 });
 
-//gulp.task('templates', function() {
-//	return gulp.src(paths.hbs)
-//		.pipe(handlebars())
-//        .pipe(defineModule('plain', {
-//            wrapper: 'Ember.TEMPLATES["<%= templateName %>"] = <%= handlebars %>',
-//            context: function(context) {
-//                var file = context.file;
-//                var name = path.relative(file.cwd, file.path)
-//                    .slice(0, -path.extname(file.path).length)
-//                    .replace(paths.templatesRoot, "");
-//                return { templateName: name };
-//            }
-//        }))
-//		.pipe(concat('templates.js'))
-//		.pipe(gulp.dest('builds'));
-//});
-
 gulp.task('qunit-css', function() {
 	return gulp.src('bower_components/qunit/qunit/qunit.css')
 		.pipe(gulp.dest('builds/tests/vendor'));
@@ -164,17 +147,6 @@ gulp.task('scripts', ['hint', 'mixins', 'concat'], function () { //'templates'
 						ember: 'ember',
 						handlebars: 'Handlebars'
 					}
-				},
-				ember_oauth2: {
-					path: 'bower_components/ember-oauth2/dist/ember.oauth2.js',
-					exports: 'ember_oauth2',
-					depends: {
-						jquery: '$'
-					}
-				},
-				ember_simple_auth: {
-					path: 'bower_components/ember-simple-auth/ember-simple-auth',
-					exports: 'ember_simple_auth'
 				},
 				custom_prefs: {
 					path: 'assets/prebuild/custom.js',

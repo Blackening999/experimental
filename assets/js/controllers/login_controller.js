@@ -1,4 +1,4 @@
-Blog.LoginController = Ember.Controller.extend(Ember.SimpleAuth.LoginControllerMixin, {
+Blog.LoginController = Ember.Controller.extend({
     userName: "",
     userEmail: "",
     userPassword: "",

@@ -1,7 +1,5 @@
 require('ember');
 require('ember_data');
-require('ember_oauth2');
-require('ember_simple_auth');
 require('custom_prefs');
 
 
