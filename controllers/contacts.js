@@ -14,23 +14,23 @@ exports.get = function(req, res) {
 
 exports.post = function(req, res) {
 	Contact.create(req.body.contact, function(err, contact) {
-		if (err) new HttpError(res);
+		if (err) new HttpError(err);
 		res.send(JSON.stringify({ contact: contact }));
 	});
 };
 
 exports.put = function(req, res) {
 	Contact.update({_id: req.params._id}, req.body.contact, function(err, updateRes) {
-		if (err) new HttpError(res);
+		if (err) new HttpError(err);
 		res.send(JSON.stringify(updateRes));
 	});
 };
 
 exports.del = function (req, res) {
 	Contact.findById(req.params._id, function (err, contact) {
-		if (err) new HttpError(res);
+		if (err) new HttpError(err);
 		contact.remove(function (err, removeRes) {
-			if (err) new HttpError(res);
+			if (err) new HttpError(err);
 			res.send(JSON.stringify({ contact: removeRes }));
 		});
 	});

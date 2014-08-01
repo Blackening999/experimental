@@ -1,20 +1,18 @@
 module.exports = function(app, passport, auth) {
 	//User Routes
 	var users = require('../controllers/users');
-	app.get('/signin', users.signin);
+	app.get('/reject', users.reject);
 //	app.get('/signup', users.signup);
 	app.get('/signout', users.signout);
 
 	//Setting up the users api
 //	app.post('/users', users.create);
 
-	app.post('/users/session', passport.authenticate('local', {
-		failureRedirect: '/',
-		failureFlash: 'Invalid email or password.'
-	}), users.session);
+	app.post('/users/session', users.session);
 
 //	app.get('/users/me', users.me);
-//	app.get('/users/:userId', users.show);
+	app.get('/users/:userId', users.get);
+    app.get('/users/:userId', users.put);
 
 	//Finish with setting up the userId param
 	app.param('userId', users.user);
@@ -23,7 +21,7 @@ module.exports = function(app, passport, auth) {
 	app.get('/auth/facebook', passport.authenticate('facebook', {
 		scope: ['user_about_me'],
 		failureRedirect: '/'
-	}), users.signin);
+	}), users.reject);
 
 	app.get('/auth/facebook/callback', passport.authenticate('facebook', {
 		failureRedirect: '/'
@@ -32,7 +30,7 @@ module.exports = function(app, passport, auth) {
 	//Setting the github oauth routes
 	app.get('/auth/github', passport.authenticate('github', {
 		failureRedirect: '/'
-	}), users.signin);
+	}), users.reject);
 
 	app.get('/auth/github/callback', passport.authenticate('github', {
 		failureRedirect: '/'
@@ -41,7 +39,7 @@ module.exports = function(app, passport, auth) {
 	//Setting the twitter oauth routes
 	app.get('/auth/twitter', passport.authenticate('twitter', {
 		failureRedirect: '/'
-	}), users.signin);
+	}), users.reject);
 
 	app.get('/auth/twitter/callback', passport.authenticate('twitter', {
 		failureRedirect: '/'
@@ -52,7 +50,7 @@ module.exports = function(app, passport, auth) {
 		scope: ['r_basicprofile'],
 		state: "vf@5$zzdtgh7ygh#$zUtR886G3!213",
 		failureRedirect: '/'
-	}), users.signin);
+	}), users.reject);
 
 	app.get('/auth/linkedin/callback', passport.authenticate('linkedin', {
 		failureRedirect: '/'
@@ -64,7 +62,7 @@ module.exports = function(app, passport, auth) {
 		scope: [
 			'https://www.googleapis.com/auth/userinfo.profile'
 		]
-	}), users.signin);
+	}), users.reject);
 
 	app.get('/auth/google/callback', passport.authenticate('google', {
 		failureRedirect: '/'

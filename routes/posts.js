@@ -3,9 +3,9 @@ module.exports = function(app, passport, auth) {
 	var posts = require('../controllers/posts');
 
 	app.get('/posts', posts.get);
-	app.post('/posts', posts.post);
-	app.put('/posts/:_id', posts.put);
-	app.del('/posts/:_id', posts.del);
+	app.post('/posts', auth.requiresLogin, auth.hasAuthorization, auth.isAdmin, posts.post);
+	app.put('/posts/:_id', auth.requiresLogin, auth.hasAuthorization, auth.isAdmin, posts.put);
+	app.del('/posts/:_id', auth.requiresLogin, auth.hasAuthorization, auth.isAdmin, posts.del);
 
 
 	// app.post('/posts', auth.requiresLogin, posts.create);

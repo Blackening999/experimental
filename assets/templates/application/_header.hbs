@@ -1,0 +1,26 @@
+<header class="container">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="brand_logo" href="index.html"></a>
+
+            <div class="nav-collapse collapse">
+                <ul class="nav pull-right">
+                    {{#link-to 'index' title='Home' tagName='li'}}<a>Home</a>{{/link-to}}
+                    {{#link-to 'posts' title='Blog' tagName='li'}}<a>Blog</a>{{/link-to}}
+                    {{#link-to 'projects' title='Portfolio' tagName='li'}}<a>Portfolio</a>{{/link-to}}
+                    {{#link-to 'contacts' title='About' tagName='li'}}<a>About</a>{{/link-to}}
+                    {{#if userAuthenticated}}
+                        <li><a {{action "logout"}} href="#">Logout</a></li>
+                    {{else}}
+                        {{#link-to 'login' title='Login' tagName='li'}}<a>Login</a>{{/link-to}}
+                    {{/if}}
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>

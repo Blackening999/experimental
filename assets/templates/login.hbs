@@ -36,30 +36,23 @@
                         <form class="form-horizontal">
                             <!--<div class="row-fluid">-->
                             <div class="control-group">
-                                <label class="control-label" for="email">Name</label>
-
-                                <div class="controls">
-                                    {{input id="name" type="text" value=userName placeholder="Name (Required)" class="input-block-level"}}
-                                </div>
-                            </div>
-                            <div class="control-group">
                                 <label class="control-label" for="email">Email</label>
 
                                 <div class="controls">
-                                    {{input id="email" type="text" value=userEmail placeholder="Email (Required)" class="input-block-level"}}
+                                    {{input type="text" value=userEmail placeholder="Email (Required)" class="input-block-level"}}
                                 </div>
                             </div>
                             <div class="control-group">
                                 <label class="control-label" for="email">Password</label>
 
                                 <div class="controls">
-                                    {{input id="password" type="text" value=userPassword placeholder="Password (Required)" class="input-block-level"}}
+                                    {{input type="password" value=userPassword placeholder="Password (Required)" class="input-block-level"}}
                                 </div>
                             </div>
                             <div class="control-group">
                                 <div class="controls">
-                                    <a {{action "authorize" }}href="#" title="Login" class="btn btn-primary btn-medium"
-                                       style="opacity: 1;">Login <i class="icon-angle-right"></i></a>
+                                    <a {{action "authorize"}} href="#" title="Login" class="btn btn-primary btn-medium"
+                                       style="opacity: 1;" {{bind-attr disabled=isProcessing}}>Login <i class="icon-angle-right"></i></a>
                                 </div>
                             </div>
                             <!--</div>-->

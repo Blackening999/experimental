@@ -1,0 +1,1 @@
+Blog.CatchallRoute = Ember.Route.extend({});

@@ -1,13 +1,15 @@
 var mongoose = require('mongoose'),
+    passport = require('passport'),
+    HttpError = require('error').HttpError,
 	User = mongoose.model('User');
 
-exports.authCallback = function(req, res, next) {
+exports.authCallback = function(req, res) {
 	res.redirect('/');
 };
 
-exports.signin = function(req, res) {
+exports.reject = function(req, res) {
 	res.redirect('/', {
-		error: req.flash('error')
+		message: req.flash('error')
 	});
 };
 
@@ -24,8 +26,23 @@ exports.signout = function(req, res) {
 };
 
 
-exports.session = function(req, res) {
-	res.send(req.user);
+exports.session = function(req, res, next) {
+    passport.authenticate('local', function(err, user, info) {
+        if (err) return next(err);
+        if (!user) {
+            return res.send({ error: info.message });
+        }
+        req.logIn(user, function(err) {
+            if (err) return next(err);
+            res.send({
+                _id: user.get('id'),
+                name: user.get('name'),
+                email: user.get('email'),
+                is_admin: user.get('is_admin'),
+                is_owner: user.get('is_owner')
+            });
+        });
+    })(req, res, next);
 };
 
 //exports.create = function(req, res) {
@@ -48,17 +65,20 @@ exports.session = function(req, res) {
 //	});
 //};
 
-//exports.show = function(req, res) {
-//	var user = req.profile;
-//
-//	res.render('layouts/show', {
-//		title: user.name,
-//		user: user
-//	});
-//};
+exports.get = function(req, res) {
+	var user = req.profile;
+    res.send({ user: user._doc });
+};
+
+exports.put = function(req, res) {
+    User.update({_id: req.params._id}, req.body.user, function(err, updateRes) {
+        if (err) new HttpError(err);
+        res.send(JSON.stringify(updateRes));
+    });
+};
 
 //exports.me = function(req, res) {
-//	res.jsonp(req.user || null);
+//	res.send(req.user || null);
 //};
 
 exports.user = function(req, res, next, id) {

@@ -40,7 +40,7 @@ function createPosts(callback) {
 			title: "New 1",
 			description: "It is new number one",
 			category: "JavaScript",
-			cover: "http://placehold.it/1000x800",
+			cover: "http://placehold.it/1000x800.png",
 			items: [],
 			text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc convallis erat congue tellus fringilla, vel consectetur nulla luctus. Sed faucibus odio neque, in mollis ipsum fermentum sit amet. Mauris vehicula nisl justo, at venenatis nisl eleifend sed. Nulla nec sem nec nunc placerat vehicula. Vivamus interdum dolor eget magna ornare, id placerat dolor dictum. Quisque egestas ut lectus sit amet pellentesque. Nam posuere tristique libero, sed porta velit laoreet sit amet.",
 			postedAt: new Date()
@@ -48,8 +48,8 @@ function createPosts(callback) {
 		{
 			title: "New 2",
 			description: "It is new number one",
-			category: "JavaScript",
-			cover: "http://placehold.it/1000x800",
+			category: "jQuery",
+			cover: "http://placehold.it/1000x800.png",
 			items: [],
 			text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc convallis erat congue tellus fringilla, vel consectetur nulla luctus. Sed faucibus odio neque, in mollis ipsum fermentum sit amet. Mauris vehicula nisl justo, at venenatis nisl eleifend sed. Nulla nec sem nec nunc placerat vehicula. Vivamus interdum dolor eget magna ornare, id placerat dolor dictum. Quisque egestas ut lectus sit amet pellentesque. Nam posuere tristique libero, sed porta velit laoreet sit amet.",
 			postedAt: new Date()
@@ -57,8 +57,8 @@ function createPosts(callback) {
 		{
 			title: "New 3",
 			description: "It is new number one",
-			category: "JavaScript",
-			cover: "http://placehold.it/1000x800",
+			category: "Front-End",
+			cover: "http://placehold.it/1000x800.png",
 			items: [],
 			text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc convallis erat congue tellus fringilla, vel consectetur nulla luctus. Sed faucibus odio neque, in mollis ipsum fermentum sit amet. Mauris vehicula nisl justo, at venenatis nisl eleifend sed. Nulla nec sem nec nunc placerat vehicula. Vivamus interdum dolor eget magna ornare, id placerat dolor dictum. Quisque egestas ut lectus sit amet pellentesque. Nam posuere tristique libero, sed porta velit laoreet sit amet.",
 			postedAt: new Date()
@@ -66,8 +66,8 @@ function createPosts(callback) {
 		{
 			title: "New 4",
 			description: "It is new number one",
-			category: "JavaScript",
-			cover: "http://placehold.it/1000x800",
+			category: "jQuery",
+			cover: "http://placehold.it/1000x800.png",
 			items: [],
 			text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc convallis erat congue tellus fringilla, vel consectetur nulla luctus. Sed faucibus odio neque, in mollis ipsum fermentum sit amet. Mauris vehicula nisl justo, at venenatis nisl eleifend sed. Nulla nec sem nec nunc placerat vehicula. Vivamus interdum dolor eget magna ornare, id placerat dolor dictum. Quisque egestas ut lectus sit amet pellentesque. Nam posuere tristique libero, sed porta velit laoreet sit amet.",
 			postedAt: new Date()
@@ -76,7 +76,7 @@ function createPosts(callback) {
 			title: "New 5",
 			description: "It is new number one",
 			category: "JavaScript",
-			cover: "http://placehold.it/1000x800",
+			cover: "http://placehold.it/1000x800.png",
 			items: [],
 			text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc convallis erat congue tellus fringilla, vel consectetur nulla luctus. Sed faucibus odio neque, in mollis ipsum fermentum sit amet. Mauris vehicula nisl justo, at venenatis nisl eleifend sed. Nulla nec sem nec nunc placerat vehicula. Vivamus interdum dolor eget magna ornare, id placerat dolor dictum. Quisque egestas ut lectus sit amet pellentesque. Nam posuere tristique libero, sed porta velit laoreet sit amet.",
 			postedAt: new Date()
@@ -85,7 +85,7 @@ function createPosts(callback) {
 			title: "New 6",
 			description: "It is new number WRONG",
 			category: "JavaScript",
-			cover: "http://placehold.it/1000x800",
+			cover: "http://placehold.it/1000x800.png",
 			items: [],
 			text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc convallis erat congue tellus fringilla, vel consectetur nulla luctus. Sed faucibus odio neque, in mollis ipsum fermentum sit amet. Mauris vehicula nisl justo, at venenatis nisl eleifend sed. Nulla nec sem nec nunc placerat vehicula. Vivamus interdum dolor eget magna ornare, id placerat dolor dictum. Quisque egestas ut lectus sit amet pellentesque. Nam posuere tristique libero, sed porta velit laoreet sit amet.",
 			postedAt: new Date()
@@ -93,8 +93,8 @@ function createPosts(callback) {
 		{
 			title: "New 7",
 			description: "It is new number WRONG",
-			category: "JavaScript",
-			cover: "http://placehold.it/1000x800",
+			category: "Front-End",
+			cover: "http://placehold.it/1000x800.png",
 			items: [],
 			text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc convallis erat congue tellus fringilla, vel consectetur nulla luctus. Sed faucibus odio neque, in mollis ipsum fermentum sit amet. Mauris vehicula nisl justo, at venenatis nisl eleifend sed. Nulla nec sem nec nunc placerat vehicula. Vivamus interdum dolor eget magna ornare, id placerat dolor dictum. Quisque egestas ut lectus sit amet pellentesque. Nam posuere tristique libero, sed porta velit laoreet sit amet.",
 			postedAt: new Date()
@@ -103,7 +103,7 @@ function createPosts(callback) {
 			title: "New 8",
 			description: "It is new number WRONG",
 			category: "JavaScript",
-			cover: "http://placehold.it/1000x800",
+			cover: "http://placehold.it/1000x800.png",
 			items: [],
 			text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc convallis erat congue tellus fringilla, vel consectetur nulla luctus. Sed faucibus odio neque, in mollis ipsum fermentum sit amet. Mauris vehicula nisl justo, at venenatis nisl eleifend sed. Nulla nec sem nec nunc placerat vehicula. Vivamus interdum dolor eget magna ornare, id placerat dolor dictum. Quisque egestas ut lectus sit amet pellentesque. Nam posuere tristique libero, sed porta velit laoreet sit amet.",
 			postedAt: new Date()
@@ -111,8 +111,8 @@ function createPosts(callback) {
 		{
 			title: "New 9",
 			description: "It is new number WRONG",
-			category: "JavaScript",
-			cover: "http://placehold.it/1000x800",
+			category: "jQuery",
+			cover: "http://placehold.it/1000x800.png",
 			items: [],
 			text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc convallis erat congue tellus fringilla, vel consectetur nulla luctus. Sed faucibus odio neque, in mollis ipsum fermentum sit amet. Mauris vehicula nisl justo, at venenatis nisl eleifend sed. Nulla nec sem nec nunc placerat vehicula. Vivamus interdum dolor eget magna ornare, id placerat dolor dictum. Quisque egestas ut lectus sit amet pellentesque. Nam posuere tristique libero, sed porta velit laoreet sit amet.",
 			postedAt: new Date()
@@ -130,7 +130,7 @@ function createProjects(callback) {
 		{
 			title: "Project 1",
 			description: "It is new number one",
-			cover: "http://placehold.it/1000x800",
+			cover: "http://placehold.it/1000x800.png",
 			items: [],
 			text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc convallis erat congue tellus fringilla, vel consectetur nulla luctus. Sed faucibus odio neque, in mollis ipsum fermentum sit amet. Mauris vehicula nisl justo, at venenatis nisl eleifend sed. Nulla nec sem nec nunc placerat vehicula. Vivamus interdum dolor eget magna ornare, id placerat dolor dictum. Quisque egestas ut lectus sit amet pellentesque. Nam posuere tristique libero, sed porta velit laoreet sit amet.",
 			postedAt: new Date()
@@ -138,7 +138,7 @@ function createProjects(callback) {
 		{
 			title: "Project 2",
 			description: "It is new number one",
-			cover: "http://placehold.it/1000x800",
+			cover: "http://placehold.it/1000x800.png",
 			items: [],
 			text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc convallis erat congue tellus fringilla, vel consectetur nulla luctus. Sed faucibus odio neque, in mollis ipsum fermentum sit amet. Mauris vehicula nisl justo, at venenatis nisl eleifend sed. Nulla nec sem nec nunc placerat vehicula. Vivamus interdum dolor eget magna ornare, id placerat dolor dictum. Quisque egestas ut lectus sit amet pellentesque. Nam posuere tristique libero, sed porta velit laoreet sit amet.",
 			postedAt: new Date()
@@ -146,7 +146,7 @@ function createProjects(callback) {
 		{
 			title: "Project 3",
 			description: "It is new number one",
-			cover: "http://placehold.it/1000x800",
+			cover: "http://placehold.it/1000x800.png",
 			items: [],
 			text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc convallis erat congue tellus fringilla, vel consectetur nulla luctus. Sed faucibus odio neque, in mollis ipsum fermentum sit amet. Mauris vehicula nisl justo, at venenatis nisl eleifend sed. Nulla nec sem nec nunc placerat vehicula. Vivamus interdum dolor eget magna ornare, id placerat dolor dictum. Quisque egestas ut lectus sit amet pellentesque. Nam posuere tristique libero, sed porta velit laoreet sit amet.",
 			postedAt: new Date()
@@ -154,7 +154,7 @@ function createProjects(callback) {
 		{
 			title: "Project 4",
 			description: "It is new number one",
-			cover: "http://placehold.it/1000x800",
+			cover: "http://placehold.it/1000x800.png",
 			items: [],
 			text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc convallis erat congue tellus fringilla, vel consectetur nulla luctus. Sed faucibus odio neque, in mollis ipsum fermentum sit amet. Mauris vehicula nisl justo, at venenatis nisl eleifend sed. Nulla nec sem nec nunc placerat vehicula. Vivamus interdum dolor eget magna ornare, id placerat dolor dictum. Quisque egestas ut lectus sit amet pellentesque. Nam posuere tristique libero, sed porta velit laoreet sit amet.",
 			postedAt: new Date()
@@ -162,7 +162,7 @@ function createProjects(callback) {
 		{
 			title: "Project 5",
 			description: "It is new number one",
-			cover: "http://placehold.it/1000x800",
+			cover: "http://placehold.it/1000x800.png",
 			items: [],
 			text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc convallis erat congue tellus fringilla, vel consectetur nulla luctus. Sed faucibus odio neque, in mollis ipsum fermentum sit amet. Mauris vehicula nisl justo, at venenatis nisl eleifend sed. Nulla nec sem nec nunc placerat vehicula. Vivamus interdum dolor eget magna ornare, id placerat dolor dictum. Quisque egestas ut lectus sit amet pellentesque. Nam posuere tristique libero, sed porta velit laoreet sit amet.",
 			postedAt: new Date()
@@ -170,7 +170,7 @@ function createProjects(callback) {
 		{
 			title: "Project 6",
 			description: "It is new number WRONG",
-			cover: "http://placehold.it/1000x800",
+			cover: "http://placehold.it/1000x800.png",
 			items: [],
 			text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc convallis erat congue tellus fringilla, vel consectetur nulla luctus. Sed faucibus odio neque, in mollis ipsum fermentum sit amet. Mauris vehicula nisl justo, at venenatis nisl eleifend sed. Nulla nec sem nec nunc placerat vehicula. Vivamus interdum dolor eget magna ornare, id placerat dolor dictum. Quisque egestas ut lectus sit amet pellentesque. Nam posuere tristique libero, sed porta velit laoreet sit amet.",
 			postedAt: new Date()
@@ -178,7 +178,7 @@ function createProjects(callback) {
 		{
 			title: "Project 7",
 			description: "It is new number WRONG",
-			cover: "http://placehold.it/1000x800",
+			cover: "http://placehold.it/1000x800.png",
 			items: [],
 			text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc convallis erat congue tellus fringilla, vel consectetur nulla luctus. Sed faucibus odio neque, in mollis ipsum fermentum sit amet. Mauris vehicula nisl justo, at venenatis nisl eleifend sed. Nulla nec sem nec nunc placerat vehicula. Vivamus interdum dolor eget magna ornare, id placerat dolor dictum. Quisque egestas ut lectus sit amet pellentesque. Nam posuere tristique libero, sed porta velit laoreet sit amet.",
 			postedAt: new Date()
@@ -186,7 +186,7 @@ function createProjects(callback) {
 		{
 			title: "Project 8",
 			description: "It is new number WRONG",
-			cover: "http://placehold.it/1000x800",
+			cover: "http://placehold.it/1000x800.png",
 			items: [],
 			text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc convallis erat congue tellus fringilla, vel consectetur nulla luctus. Sed faucibus odio neque, in mollis ipsum fermentum sit amet. Mauris vehicula nisl justo, at venenatis nisl eleifend sed. Nulla nec sem nec nunc placerat vehicula. Vivamus interdum dolor eget magna ornare, id placerat dolor dictum. Quisque egestas ut lectus sit amet pellentesque. Nam posuere tristique libero, sed porta velit laoreet sit amet.",
 			postedAt: new Date()
@@ -194,7 +194,7 @@ function createProjects(callback) {
 		{
 			title: "Project 9",
 			description: "It is new number WRONG",
-			cover: "http://placehold.it/1000x800",
+			cover: "http://placehold.it/1000x800.png",
 
 			text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc convallis erat congue tellus fringilla, vel consectetur nulla luctus. Sed faucibus odio neque, in mollis ipsum fermentum sit amet. Mauris vehicula nisl justo, at venenatis nisl eleifend sed. Nulla nec sem nec nunc placerat vehicula. Vivamus interdum dolor eget magna ornare, id placerat dolor dictum. Quisque egestas ut lectus sit amet pellentesque. Nam posuere tristique libero, sed porta velit laoreet sit amet.",
 			postedAt: new Date()
@@ -202,7 +202,7 @@ function createProjects(callback) {
 		{
 			title: "Project 10",
 			description: "It is new number WRONG",
-			cover: "http://placehold.it/1000x800",
+			cover: "http://placehold.it/1000x800.png",
 			text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc convallis erat congue tellus fringilla, vel consectetur nulla luctus. Sed faucibus odio neque, in mollis ipsum fermentum sit amet. Mauris vehicula nisl justo, at venenatis nisl eleifend sed. Nulla nec sem nec nunc placerat vehicula. Vivamus interdum dolor eget magna ornare, id placerat dolor dictum. Quisque egestas ut lectus sit amet pellentesque. Nam posuere tristique libero, sed porta velit laoreet sit amet.",
 			postedAt: new Date()
 		}
@@ -221,7 +221,7 @@ function createContacts(callback) {
 			direction: "Front-End Developer",
 			age: 22,
 			skills: ['js', 'html5'],
-			photo: "http://placehold.it/1000x800",
+			photo: "http://placehold.it/1000x800.png",
 			portfolio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc convallis erat congue tellus fringilla, vel consectetur nulla luctus. Sed faucibus odio neque, in mollis ipsum fermentum sit amet. Mauris vehicula nisl justo, at venenatis nisl eleifend sed. Nulla nec sem nec nunc placerat vehicula. Vivamus interdum dolor eget magna ornare, id placerat dolor dictum. Quisque egestas ut lectus sit amet pellentesque. Nam posuere tristique libero, sed porta velit laoreet sit amet."
 		},
 		{
@@ -229,7 +229,7 @@ function createContacts(callback) {
 			direction: "Back-End Developer",
 			age: 22,
 			skills: ['js', 'html5'],
-			photo: "http://placehold.it/1000x800",
+			photo: "http://placehold.it/1000x800.png",
 			portfolio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc convallis erat congue tellus fringilla, vel consectetur nulla luctus. Sed faucibus odio neque, in mollis ipsum fermentum sit amet. Mauris vehicula nisl justo, at venenatis nisl eleifend sed. Nulla nec sem nec nunc placerat vehicula. Vivamus interdum dolor eget magna ornare, id placerat dolor dictum. Quisque egestas ut lectus sit amet pellentesque. Nam posuere tristique libero, sed porta velit laoreet sit amet."
 		},
 		{
@@ -237,7 +237,7 @@ function createContacts(callback) {
 			direction: "SQL Developer",
 			age: 22,
 			skills: ['js', 'html5'],
-			photo: "http://placehold.it/1000x800",
+			photo: "http://placehold.it/1000x800.png",
 			portfolio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc convallis erat congue tellus fringilla, vel consectetur nulla luctus. Sed faucibus odio neque, in mollis ipsum fermentum sit amet. Mauris vehicula nisl justo, at venenatis nisl eleifend sed. Nulla nec sem nec nunc placerat vehicula. Vivamus interdum dolor eget magna ornare, id placerat dolor dictum. Quisque egestas ut lectus sit amet pellentesque. Nam posuere tristique libero, sed porta velit laoreet sit amet."
 		}
 	];
@@ -252,18 +252,22 @@ function createAdmins(callback) {
     var admins = [
         {
             name: "aaa",
+            is_admin: true,
             email: "aaa",
-            password: "111"
+            password: "aaa"
         },
         {
             name: "adminka2",
+            is_admin: true,
             email: "admin2",
             password: "1234"
         },
         {
-            name: "adminka3",
-            email: "admin3",
-            password: "1234"
+            name: "blackening",
+            is_admin: true,
+            is_owner: true,
+            email: "pointhomefinal@gmail.com",
+            password: "farcry11"
         }
     ];
 

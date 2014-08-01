@@ -1,0 +1,15 @@
+<div class="sep20"></div>
+<h2>Search Results:</h2>
+<div class="row-fluid results-holder">
+    {{#each controller.highlightedContent}}
+        <div class="span11 step block">
+            <h4>{{{title}}}</h4>
+            <h5>{{{description}}}</h5>
+            <p>{{{text}}}</p>
+        </div>
+    {{else}}
+        <div class="span11 step block">
+            <h4>Sorry, no results found :(</h4>
+        </div>
+    {{/each}}
+</div>

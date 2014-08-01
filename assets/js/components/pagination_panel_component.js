@@ -27,7 +27,7 @@ Blog.PaginationPanelComponent = Ember.Component.extend({
 
 	}.property('page', 'pages'),
 	showBefore: function() {
-		return this.get('visiblePages.firstObject') > 3
+		return this.get('visiblePages.firstObject') > 3;
 	}.property('visiblePages.[]'),
 	showAfter: function() {
 		return Math.abs(this.get('lastPage') - this.get('visiblePages.lastObject') > 2)

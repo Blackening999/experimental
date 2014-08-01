@@ -8,7 +8,6 @@ var gif          = require('gulp-if');
 var uglify       = require('gulp-uglify');
 var imagemin     = require('gulp-imagemin');
 var declare      = require('gulp-declare');
-var path         = require('path');
 var streamqueue  = require('streamqueue');
 var hbs          = require('gulp-ember-handlebars');
 
@@ -23,25 +22,6 @@ var paths = {
 };
 
 var debug = process.env.NODE_ENV !== 'production';
-
-gulp.task("app", function () {
-    var stream = streamqueue({ objectMode: true });
-    stream.queue(gulp.src('builds/js/all.js'));
-    stream.queue(
-        gulp
-            .src('assets/templates/**/*.hbs')
-            .pipe(hbs({
-                outputType: "browser",
-                processName: function (templateName) {
-                    return templateName.replace("_", "-");
-                }
-            }))
-            .pipe(concat("builds/templates.js"))
-    );
-    return stream.done()
-        .pipe(concat("app.js"))
-        .pipe(gulp.dest("builds/js"))
-});
 
 gulp.task('concat', function() {
 	return gulp.src(paths.scripts)
@@ -82,12 +62,6 @@ gulp.task('styles', function () {
 		.pipe(gulp.dest('builds/css'));
 });
 
-//gulp.task('fancybox', function() {
-//	return gulp.src('assets/js/helpers/fancybox/**/*.js')
-//		.pipe(concat('fancybox.js'))
-//		.pipe(gulp.dest('assets/prebuild'))
-//});
-
 gulp.task('custom_prefs', function() {
 	return gulp.src('assets/helpers/**/*.js')
 		.pipe(concat('custom.js'))
@@ -99,7 +73,7 @@ gulp.task('mixins', function() {
 		.pipe(concat('mixins.js'))
 		.pipe(gulp.dest('assets/prebuild'))
 });
-
+//TODO: prepare production versions before release :)
 gulp.task('scripts', ['hint', 'mixins', 'concat'], function () { //'templates'
 	var ember, ember_data;
 	if (debug) {
@@ -155,31 +129,45 @@ gulp.task('scripts', ['hint', 'mixins', 'concat'], function () { //'templates'
 						jquery: '$'
 					}
 				}
-//				localstorage: { //ls-storage
-//					path: 'bower_components/ember-localstorage-adapter/localstorage_adapter.js',
-//					exports: 'DS.LSAdapter',
-//					depends: {
-//						ember: 'ember',
-//						handlebars: 'Handlebars',
-//						ember_data: 'DS'
-//					}
-//				}
 			}
 		}))
 		.on('prebundle', function (bundle) {
 			bundle.add('../../bower_components/ember/' + ember);
 			bundle.add('../../bower_components/ember-data/' + ember_data);
-			bundle.add('../../builds/templates.js');
+            bundle.add('../../builds/templates.js');
+			bundle.add('../../bower_components/moment/moment.js');
+            bundle.add('../../bower_components/ember-animate/ember-animate.js');
+            bundle.add('../../bower_components/jquery.transit/jquery.transit.js');
+            bundle.add('../../bower_components/summernote/dist/summernote.js');
 		})
 		.pipe(gif(!debug, uglify()))
 		.pipe(gulp.dest('builds/js'));
 });
 
-gulp.task('default', ['styles', 'custom_prefs', 'scripts', 'qunit-css', 'qunit-js', 'tests', 'app'], function () { });
+gulp.task("app", ['scripts'], function () {
+    var stream = streamqueue({ objectMode: true });
+    stream.queue(gulp.src('builds/js/all.js'));
+    stream.queue(
+        gulp
+            .src('assets/templates/**/*.hbs')
+            .pipe(hbs({
+                outputType: "browser",
+                processName: function (templateName) {
+                    return templateName.replace(/_/ig, "-").replace(/(\/-)/i, "/_")
+                }
+            }))
+            .pipe(concat("builds/templates.js"))
+    );
+    return stream.done()
+        .pipe(concat("app.js"))
+        .pipe(gulp.dest("builds/js"))
+});
+
+gulp.task('default', ['styles', 'custom_prefs', 'qunit-css', 'qunit-js', 'tests', 'app'], function () { });
 
 gulp.task('watch', function () {
-	gulp.watch(paths.scripts, ['mixins', 'scripts']);
+	gulp.watch(paths.scripts, ['app']);
 	gulp.watch(paths.tests, ['tests']);
-	gulp.watch(paths.hbs, ['scripts']);
+	gulp.watch(paths.hbs, ['app']);
 	gulp.watch(paths.styles, ['styles']);
 });

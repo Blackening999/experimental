@@ -1,12 +1,8 @@
-(function($) { //$(function(){
-
-
+(function($) {
 	return custom_prefs	= {
 		init: function () {
 			/** Social Icons animation **/
-
-			$('.footer_inner .social_icons a').hover(function (){
-
+			$('.footer_inner .social_icons a').hover(function () {
 				$(this).find('i').stop(true,true).delay(200).animate({
 					top:-60
 				}, 'fast', function (){
@@ -16,8 +12,7 @@
 							top:120
 						})
 						.animate({top:0})
-				})
-
+				});
 			},function (){
 
 				$(this)

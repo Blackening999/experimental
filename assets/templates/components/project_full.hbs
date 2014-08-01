@@ -14,12 +14,14 @@
             </div>
         {{else}}
             <h2>{{project.title}}</h2>
-            <a {{action "startEditing"}} class="btn btn-primary" href="#">
-                <i class="icon-pencil icon-large"></i>
-            </a>
-            <a {{action "removeProject"}} class="btn btn-danger" href="#">
-                <i class="icon-trash icon-large"></i>
-            </a>
+            {{#if isAdmin}}
+                <a {{action "startEditing"}} class="btn btn-primary" href="#">
+                    <i class="icon-pencil icon-large"></i>
+                </a>
+                <a {{action "removeProject"}} class="btn btn-danger" href="#">
+                    <i class="icon-trash icon-large"></i>
+                </a>
+            {{/if}}
         {{/if}}
     </div>
     <div class="area">

@@ -1,3 +1,5 @@
+<h1>{{title}}</h1>
+<div class="sep20"></div>
 <div class="blog-content blog-items">
     <div class="span8">
 
@@ -6,25 +8,25 @@
         <!-- Search -->
         <div class="block step blog-item hidden-desktop hidden-tablet">
             <form class="form-search">
-                <input type="text" placeholder="Search..." class="span12 search-query">
-                <button type="submit"><i class="icon-search"></i></button>
+                {{view Ember.TextField value=keyword placeholder="Search..." classNames="span12 search-query"}}
+                <!--<input type="text" placeholder="Search..." class="span12 search-query">-->
+                <button {{action 'search'}}><i class="icon-search"></i></button>
             </form>
         </div>
         <!-- Search end -->
 
 
         <!-- Categories -->
-        <div class="block step blog-item hidden-desktop hidden-tablet">
-            <select name="categories">
-                <option>Branding</option>
-                <option>Web Design</option>
-                <option>Photography</option>
-                <option>Illustration</option>
-                <option>Arсhitecture</option>
-                <option>Logos</option>
-            </select>
-        </div>
-
+        <!--<div class="block step blog-item hidden-desktop hidden-tablet">-->
+            <!--<select name="categories">-->
+                <!--<option>Branding</option>-->
+                <!--<option>Web Design</option>-->
+                <!--<option>Photography</option>-->
+                <!--<option>Illustration</option>-->
+                <!--<option>Arсhitecture</option>-->
+                <!--<option>Logos</option>-->
+            <!--</select>-->
+        <!--</div>-->
         <!-- Categories end -->
 
         <!-- Mobile Hidden Elements end -->
@@ -54,7 +56,29 @@
             </div>
         {{/if}}
 
-        {{post-full post=this completeEditing="editPost"}}
+        {{post-full unit=post completeEditing="editPost"}}
 
+        <!-- Comments -->
+        <div class="block step">
+            <div class="header">
+                <h3>{{comments.length}} Comment{{pluralize comments.length}}</h3>
+            </div>
+            <div class="area">
+                {{#each comment in comments}}
+                    {{post-comment unit=comment currentUser=user completeEditing="editComment" deleteComment="deleteComment"}}
+                {{else}}
+                    <h4> There's no comments yet </h4>
+                {{/each}}
+            </div>
+         </div>
+
+        <!-- Comments form -->
+        {{#if authenticated}}
+            {{partial "post/form"}}
+        {{else}}
+            <div class="block step clearfix">
+                <h5> If you want to leave comment, {{#link-to 'login'}}login{{/link-to}} please </h5>
+            </div>
+        {{/if}}
     </div>
 </div>

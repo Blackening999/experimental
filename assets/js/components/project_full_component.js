@@ -1,4 +1,4 @@
-Blog.ProjectFullComponent = Ember.Component.extend({
+Blog.ProjectFullComponent = Ember.Component.extend(Blog.CheckAccessComponentMixin, {
 	editMode: false,
 	actions: {
 		startEditing: function() {

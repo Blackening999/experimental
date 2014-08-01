@@ -13,10 +13,19 @@ a:hover {color: #F06461; text-decoration: none }
 /** custom styles **/
 .action-buttons { float: right }
 .edit-state { width: 100%; line-height: 20px; }
+.highlighted { background-color: #F06461; color: #fff; }
 textarea.edit-state { min-height: 300px }
+.media-body textarea.edit-state { min-height: 100px; margin: 0 10px 0 2px; width: 97%; }
 
 /** Carousel Control **/
 .carousel-control { top:40%; background:none; margin-top:0; border:none; font-size: 50px; height: 50px; -webkit-border-radius: 0; -moz-border-radius: 0; border-radius: 0 }
+
+/** Alert Messages **/
+
+.x-woof-message-container { position: fixed; width: 100%; z-index: 1501; -webkit-transform: scaleY(1); -webkit-transform-origin: top; -webkit-transition: all 0.25s ease; }
+.x-woof-message-container .woof-message { cursor: pointer; border-radius: 0; text-align: center; }
+.x-woof-message-container .woof-message:hover button.close { color: #000; opacity: .5; }
+.x-woof-message-container.pre-insert, .x-woof-message-container.destroyed { -webkit-transform: scaleY(0); opacity: 0; }
 
 /** Header **/
 
@@ -26,7 +35,7 @@ textarea.edit-state { min-height: 300px }
 		.navbar .brand_logo span { font-size:18px }
 		.navbar .nav > li { line-height: 129px }
 		.navbar-inverse .nav li.dropdown > .dropdown-toggle .caret { margin-top:62px }
-		.navbar-inverse .navbar-inner { background:#272F38; min-height: 129px; border-color:none; border:none }
+		.navbar-inverse .navbar-inner { background:#272F38; min-height: 129px; border:none }
 		.navbar-fixed-top { position:relative }
 		.navbar-inverse .nav > li > a:hover { background-color:#313A44 }
 		.navbar-inverse .nav > li > a { color:#798088; text-transform: uppercase }
@@ -104,7 +113,7 @@ textarea.edit-state { min-height: 300px }
 
 	/** 404 **/
 	.p404 { min-height: 420px; }
-		.p404 .sign { font-family: font-family: 'Open Sans Condensed', sans-serif; color:#FFF; position: relative; top:210px; font-size: 70px }
+		.p404 .sign { font-family: 'Open Sans Condensed', sans-serif; color:#FFF; position: relative; top:210px; font-size: 70px }
 		.p404 .txt404 { position:relative; top:260px; color:#fff }
 			.p404 .txt404 a { color: #F06461 }
 
@@ -138,6 +147,7 @@ textarea.edit-state { min-height: 300px }
 					.cont-outer .blog .right-side .block .area.categories ul li { background:url(../img/ui/menu-arrow.png) left 7px no-repeat; height: 30px; display: inline-block; min-width: 49%; list-style-type: none }
 				.cont-outer .blog .right-side .block .area.categories a { width: 49%; color:#798088; margin-left:20px; white-space: nowrap; display: inline-block  }
 				.cont-outer .blog .right-side .block .area.categories a:hover { text-decoration: none; color:#F06461 }
+				.cont-outer .blog .right-side .block .area.categories li.active a { text-decoration: none; color:#F06461 }
 			.cont-outer .blog .right-side .form-search, .cont-outer .blog .blog-items .form-search { position:relative; margin:0 }
 				.cont-outer .blog .right-side .form-search button, .cont-outer .blog .blog-items .form-search button { position:absolute; top:10px; color:#798088; -webkit-transition: all 0.2s ease; -moz-transition: all 0.2s ease; -o-transition: all 0.2s ease; transition: all 0.2s ease; right:14px; background: #313A44; border:0 }
 				.cont-outer .blog .right-side .form-search input, .cont-outer .blog .blog-items .form-search input { padding:11px 14px; height: auto }
@@ -145,6 +155,7 @@ textarea.edit-state { min-height: 300px }
 			.cont-outer .blog .right-side .block .area #twitter .tweet { color: #798088; margin-bottom:20px }
 			.cont-outer .blog .right-side .block .area #twitter .tweet:last-of-type { margin-bottom:0px }
 				.cont-outer .blog .right-side .block .area #twitter .tweet .time { font-size: 12px; color: #4D5762 }
+            .cont-outer .blog .right-side .block .instagram-widget > li { list-style: none }
 
 			.cont-outer .blog .right-side .block .area ul#instagram { list-style-type: none; margin:0}
 			.cont-outer .blog .right-side .block .area ul#instagram li { width:25%; display: inline-block }
@@ -157,15 +168,25 @@ textarea.edit-state { min-height: 300px }
 		.cont-outer .row-fluid.blog .blog-items .pagination ul li a:hover { background: #313A44 }
 
 
+        /** Search Post Page **/
+        .cont-outer .row-fluid.blog.search-block .results-holder { max-height: 600px; overflow-y: auto }
+
+
 		/** Blog Single Post Page **/
 		.cont-outer .row-fluid.blog.single .block.step { margin-bottom:30px }
 			.cont-outer .row-fluid.blog.single .blog-content .block.step .header { border-bottom: 1px solid #1B222B; position:absolute; width:100%; left:0px }
+			.cont-outer .row-fluid.blog.single .blog-content .block.step.editing .header div { margin-left: 30px; margin-right: 30px; }
 			.cont-outer .row-fluid.blog.single .blog-content .block.step .area { margin-top:60px; position: relative }
+            .cont-outer .row-fluid.blog.single .blog-content .block.step.editing .area { margin-top: 80px; }
 		.cont-outer .row-fluid.blog.single .blog-content .carousel { margin-bottom:1px }
 				.cont-outer .row-fluid.blog.single .blog-content .block.step .header h2 { font-size:20px; font-weight: normal; color:#fff; margin:0 0 26px 30px; line-height: 14px }
+				.cont-outer .row-fluid.blog.single .blog-content .block.step .header h2 a { float: right; }
 				.cont-outer .row-fluid.blog.single .blog-content .block.step .header h3 { font-size:16px; font-weight: normal; color:#fff; margin:0 0 26px 30px; line-height: 14px }
 		.cont-outer .row-fluid.blog.single .blog-content .block.step .area .media-list .media .media-body .comment-head { border-bottom: 1px solid #1B222B; margin-bottom:6px; padding-bottom:6px }
+		.cont-outer .row-fluid.blog.single .blog-content .block.step .area .media-list .media .media-body .comment-actions { float:right; }
+		.cont-outer .row-fluid.blog.single .blog-content .block.step .area .media-list .media .media-body .comment-actions a { padding: 5px; }
 		.cont-outer .row-fluid.blog.single .blog-content .block.step .area .media-list .media .media-body .comment-head .date { font-size: 12px }
+        .cont-outer .row-fluid.blog.single .blog-content .block.step .area .media-list .media img { width: 73px; height: 73px; }
 		.iframe_single_page { width:100%; height:394px }
 
 
@@ -212,7 +233,7 @@ textarea.edit-state { min-height: 300px }
 		.footer_inner .social_icons a { background:#313A44; position: relative; overflow: hidden; padding-top:35px; height:70px; width:50px; text-decoration: none; text-align: center; margin-left:5px; float:left }
 		.footer_inner .social_icons a i { position: relative }
 		.footer_inner .social_icons a:hover { background: #55606E }
-		.footer_inner .social_icons a:hover i { color:#FFF }
+		.footer_inner .social_icons a:hover i { color: #FFF }
 			.footer_inner .social_icons a:hover i.active { position:relative; color:#FFF }
 
 /** Buttons **/
@@ -268,6 +289,7 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 	.isotope-links-mix { display: none }
     .span4.blog-items.first-set { margin-left: 0}
     .row-fluid.team .span4:first-of-type { margin-left: 0}
+    .cont-outer .row-fluid.blog .blog-items .blog-item  img { max-height: 266px; }
 }
 @media (min-width: 980px) and (max-width: 1199px) {
 	.cont-outer .portfolio { display: none }

@@ -1,0 +1,1 @@
+Blog.SearchController = Ember.Controller.extend(Blog.SearchMixin, {})

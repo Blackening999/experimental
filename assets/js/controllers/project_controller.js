@@ -1,4 +1,4 @@
-Blog.ProjectController = Ember.ObjectController.extend({
+Blog.ProjectController = Ember.ObjectController.extend(Blog.CheckAccessMixin, {
 	actions: {
 		editProject: function(project) {
 			project.save().then(function(data) {}, function(reason) {

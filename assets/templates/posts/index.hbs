@@ -6,24 +6,25 @@
     <!-- Search -->
     <div class="block step blog-item hidden-desktop hidden-tablet">
         <form class="form-search">
-            <input type="text" placeholder="Search..." class="span12 search-query">
-            <button type="submit"><i class="icon-search"></i></button>
+            {{view Ember.TextField value=keyword placeholder="Search..." classNames="span12 search-query"}}
+            <!--<input type="text" placeholder="Search..." class="span12 search-query">-->
+            <button {{action 'search'}}><i class="icon-search"></i></button>
         </form>
     </div>
     <!-- Search end -->
 
 
     <!-- Categories -->
-    <div class="block step blog-item hidden-desktop hidden-tablet">
-        <select name="categories" class="categories">
-            <option>JavaScript</option>
-            <option>Web Design</option>
-            <option>HTML</option>
-            <option>CSS</option>
-            <option>Architecture</option>
-            <option>Logos</option>
-        </select>
-    </div>
+    <!--<div class="block step blog-item hidden-desktop hidden-tablet">-->
+        <!--<select name="categories" class="categories">-->
+            <!--<option>JavaScript</option>-->
+            <!--<option>Web Design</option>-->
+            <!--<option>HTML</option>-->
+            <!--<option>CSS</option>-->
+            <!--<option>Architecture</option>-->
+            <!--<option>Logos</option>-->
+        <!--</select>-->
+    <!--</div>-->
 
     {{#each firstColumn}}
         {{post-thumb post=this removePost="removePost"}}

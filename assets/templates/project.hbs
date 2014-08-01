@@ -37,37 +37,39 @@
         <!-- Right Side -->
         <div class="right-side span4">
 
-            <div class="block step blog-item visible-desktop visible-tablet">
-                {{#link-to 'projects.create' class="btn btn-success"}} <i class="icon-plus-sign icon-white"></i>   New Poject {{/link-to}}
-            </div>
+            {{#if isAdmin}}
+                <div class="block step blog-item visible-desktop visible-tablet">
+                    {{#link-to 'projects.create' class="btn btn-success"}} <i class="icon-plus-sign icon-white"></i>   New Poject {{/link-to}}
+                </div>
+            {{/if}}
 
             <!-- Categories -->
-            <div class="block step visible-desktop visible-tablet">
-                <div class="header">
-                    <h3>Categories</h3>
-                </div>
+            <!--<div class="block step visible-desktop visible-tablet">-->
+                <!--<div class="header">-->
+                    <!--<h3>Categories</h3>-->
+                <!--</div>-->
 
-                <div class="area categories">
-                    <ul>
-                        <li><a href="#">Branding</a></li>
-                        <li><a href="#">Web Design</a></li>
-                        <li><a href="#">Photography</a></li>
-                        <li><a href="#">Illustration</a></li>
-                        <li><a href="#">Arhitecture</a></li>
-                        <li><a href="#">Logos</a></li>
-                    </ul>
-                </div>
-            </div>
+                <!--<div class="area categories">-->
+                    <!--<ul>-->
+                        <!--<li><a href="#">Branding</a></li>-->
+                        <!--<li><a href="#">Web Design</a></li>-->
+                        <!--<li><a href="#">Photography</a></li>-->
+                        <!--<li><a href="#">Illustration</a></li>-->
+                        <!--<li><a href="#">Arhitecture</a></li>-->
+                        <!--<li><a href="#">Logos</a></li>-->
+                    <!--</ul>-->
+                <!--</div>-->
+            <!--</div>-->
             <!-- Categories end -->
 
 
             <!-- Instagram Photos -->
             <div class="block step">
                 <div class="header">
-                    <h3>Instagram Widget</h3>
+                    <h3>Instagram</h3>
                 </div>
                 <div class="area">
-                    <ul id="instagram"></ul>
+                    {{view Blog.InstagramWidgetView}}
                 </div>
             </div>
             <!-- Instagram Photos end -->

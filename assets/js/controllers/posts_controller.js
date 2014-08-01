@@ -1,0 +1,1 @@
+Blog.PostsController = Ember.ArrayController.extend(Blog.CheckAccessMixin, Blog.SearchMixin, Blog.SortableMixin, {});

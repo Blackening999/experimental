@@ -1,0 +1,15 @@
+<div class="cont-outer">
+    <div class="row-fluid blog single search-block">
+        <!-- Search -->
+        <div class="block step visible-desktop right-side visible-tablet">
+            <form class="form-search">
+                {{view Ember.TextField value=keyword placeholder="Search..." classNames="span12 search-query"}}
+                <!--<input type="text" placeholder="Search..." class="span12 search-query">-->
+                <button {{action 'search'}}><i class="icon-search"></i></button>
+            </form>
+        </div>
+        <!-- Search end -->
+        {{outlet}}
+    </div>
+</div>
+<!--Body End -->

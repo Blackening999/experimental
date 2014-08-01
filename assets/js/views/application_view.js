@@ -1,0 +1,1 @@
+Blog.ApplicationView = Ember.View.extend(Blog.DefaultAnimationMixin, {});

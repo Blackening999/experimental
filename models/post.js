@@ -1,5 +1,6 @@
 var mongoose = require('libs/mongoose'),
-	Schema = mongoose.Schema;
+	Schema = mongoose.Schema,
+    ObjectId = Schema.ObjectId;
 
 var schema = new Schema({
 	title: {
@@ -26,10 +27,25 @@ var schema = new Schema({
 		type: Array,
 		required: false
 	},
-	postedAt: {
+    comment_ids: Array,
+    posted_at: {
 		type: Date,
 		default: Date.now
 	}
+});
+
+var textSearch = require('mongoose-text-search');
+schema.plugin(textSearch);
+schema.index({
+    title        : "text",
+    description  : "text",
+    text         : "text"
+}, {
+    name: "best_match_index",
+    weights: {
+        title: 5,
+        description: 4
+    }
 });
 
 exports.Post = mongoose.model('Post', schema);

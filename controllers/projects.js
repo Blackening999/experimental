@@ -6,30 +6,30 @@ var mongoose = require('mongoose'),
 
 exports.get = function(req, res) {
 	Project.find({}, function(err, projects) {
-		if (err) throw new HttpError(err);
+		if (err) new HttpError(err);
 		res.send(JSON.stringify({ projects: projects }));
 	})
 };
 
 exports.post = function(req, res) {
 	Project.create(req.body.project, function(err, project) {
-		if (err) new HttpError(res);
+		if (err) new HttpError(err);
 		res.send(JSON.stringify({ project: project }));
 	})
 };
 
 exports.put = function(req, res) {
 	Project.update({_id: req.params._id}, req.body.project, function(err, updateRes) {
-		if (err) new HttpError(res);
+		if (err) new HttpError(err);
 		res.send(JSON.stringify(updateRes));
 	});
 };
 
 exports.del = function (req, res) {
 	Project.findById(req.params._id, function(err, project) {
-		if (err) new HttpError(res);
+		if (err) new HttpError(err);
 		project.remove(function(err, removeRes) {
-			if (err) new HttpError(res);
+			if (err) new HttpError(err);
 			res.send(JSON.stringify({ project: removeRes }));
 		});
 	});

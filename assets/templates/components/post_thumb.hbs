@@ -10,10 +10,12 @@
     <div class="content">
         <h4>{{#link-to 'post' post title=post.title}} {{post.title}} {{/link-to}}</h4>
         <i class="icon-folder-open"></i>
-        <a href="#" {{bind-attr title="post.category"}}> {{post.category}} </a>
-        <span class="action-buttons">
-            <a {{action "removePost"}} class="btn btn-danger" href="#">
-                <i class="icon-trash icon-large"></i></a>
-        </span>
+        <a href="#" {{bind-attr title="category"}}>{{post.category}}</a>
+        {{#if isAdmin}}
+            <span class="action-buttons">
+                <a {{action "removePost"}} class="btn btn-danger" href="#">
+                    <i class="icon-trash icon-large"></i></a>
+            </span>
+        {{/if}}
     </div>
 </div>

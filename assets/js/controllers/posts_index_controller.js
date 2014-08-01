@@ -1,5 +1,9 @@
-Blog.PostsIndexController = Ember.ArrayController.extend(Blog.PaginatableMixin, {
-	sortProperties: ["postedAt"],
+Blog.PostsIndexController = Ember.ArrayController.extend(Blog.PaginatableMixin, Blog.CheckAccessMixin, Blog.SearchMixin, {
+    needs: ['posts'],
+    filteredContent: function () {
+        return this.get('controllers.posts.filteredContent');
+    }.property('controllers.posts.filteredContent', 'model'),
+	sortProperties: ['postedAt'],
 	sortAscending: true,
 	page: 1,
 	perPage: 8,
@@ -20,11 +24,12 @@ Blog.PostsIndexController = Ember.ArrayController.extend(Blog.PaginatableMixin, 
 	},
 	actions: {
 		removePost: function(post) {
+            var _this = this;
 			post.deleteRecord();
-			post.save().then(function(data) {}, function(reason) {
-				console.log("Failed to delete post. Reason: " + reason);
-				post.rollback();
-			});
+			post.save().then(function(data) {}, function(err) {
+                _this.woof.danger(err.responseText);
+                post.rollback();
+            });
 		}
 	}
 });
