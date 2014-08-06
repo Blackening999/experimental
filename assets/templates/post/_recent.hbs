@@ -1,0 +1,15 @@
+<div class="span4 step">
+    <div class="overlay"></div>
+    {{#link-to 'post' post class="link_button"}}
+        <i class="icon-link"></i>
+    {{/link-to}}
+    <a {{bind-attr href="post.cover"}} class="resize_button fancybox">
+        <i class="icon-fullscreen"></i>
+    </a>
+    <img {{bind-attr src="post.cover"}} alt="" />
+    <div class="content">
+        <h4>{{#link-to 'post' post title=title}} {{post.title}} {{/link-to}}</h4>
+        <i class="icon-folder-open"></i>
+        {{#link-to 'posts' (query-params category=post.category)}}{{post.category}}{{/link-to}}
+    </div>
+</div>

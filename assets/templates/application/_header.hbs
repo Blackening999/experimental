@@ -6,8 +6,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="brand_logo" href="index.html"></a>
-
+            {{#link-to 'application'}}{{view Blog.MainLogoView classNames="brand_logo"}}{{/link-to}}
             <div class="nav-collapse collapse">
                 <ul class="nav pull-right">
                     {{#link-to 'index' title='Home' tagName='li'}}<a>Home</a>{{/link-to}}

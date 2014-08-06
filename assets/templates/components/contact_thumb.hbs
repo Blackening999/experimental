@@ -1,0 +1,29 @@
+{{#if editMode}}
+    <div {{bind-attr class=":block :step editMode:editing"}}>
+        <div class="area">
+            <div>
+                <label>Portfolio:</label>
+                {{wysiwyg-editor content=unit.portfolio header="Edit"}}
+                <a {{action "completeEditing"}} class="btn btn-primary pull-right" href="#">
+                    <i class="icon-ok icon-large"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+{{else}}
+    {{#view 'Blog.PortfolioView' length=unit.portfolio.length class='step'}}
+        <div class='content'>{{{unit.portfolio}}}</div>
+        <span class='expand'> Read
+            {{#if view.isExpanded}}
+                Less <i class="icon-minus-sign"></i>
+            {{else}}
+                More <i class="icon-plus-sign"></i>
+            {{/if}}
+            </span>
+    {{/view}}
+    {{#if isAdmin}}
+        <a {{action "startEditing"}} class="btn btn-primary pull-right" href="#">
+            <i class="icon-pencil icon-large"></i>
+        </a>
+    {{/if}}
+{{/if}}

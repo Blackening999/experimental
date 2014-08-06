@@ -11,6 +11,7 @@ Blog.PostController = Ember.ObjectController.extend(Blog.CheckAccessMixin, {
     actions: {
         editPost: function (post) {
             var _this = this;
+            post.set('postedAt', new Date());
             post.save().then(function (data) {}, function (err) {
                 _this.woof.danger(err.responseText);
                 post.rollback();
@@ -20,15 +21,15 @@ Blog.PostController = Ember.ObjectController.extend(Blog.CheckAccessMixin, {
             var controller = this, user = controller.get('user'), post = controller.get('post');
             var comment = this.get('store').createRecord('comment', {
                 text: controller.get('commentText'),
+                postedAt: new Date(),
                 user: user,
-                post: post,
-                postedAt: new Date()
+                post: post
             });
             comment.save().then(function (comment_res) {
-                var comments = controller.get("comments");
+                var comments = controller.get('comments');
                 comments.pushObject(comment_res);
                 post.save().then(function (post_res) {
-                    controller.set("commentText", "");
+                    controller.set('commentText', '');
                 }, function (err) {
                     comments.popObject();
                     controller.woof.danger(err.responseText);
@@ -40,6 +41,7 @@ Blog.PostController = Ember.ObjectController.extend(Blog.CheckAccessMixin, {
         },
         editComment: function (comment) {
             var _this = this;
+            comment.set('postedAt', new Date());
             comment.save().then(function (data) {}, function (err) {
                 _this.woof.danger(err.responseText);
             });

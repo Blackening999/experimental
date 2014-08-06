@@ -3,7 +3,6 @@ require('ember_data');
 require('custom_prefs');
 
 Ember.FEATURES["query-params"] = true;
-
 Ember.Router.reopen({
     didTransition: function (data) {
         this._super(data);
@@ -13,7 +12,6 @@ Ember.Router.reopen({
         }, 100);
     }
 });
-
 window.Blog = Ember.Application.create({
     LOG_TRANSITIONS: true
 });
@@ -26,92 +24,12 @@ Blog.ActiveModelAdapter = DS.ActiveModelAdapter.extend({
         return id.toString();
     }
 });
-
-Blog.ApplicationSerializer = DS.ActiveModelSerializer.extend({
-
-});
-
-
-Blog.PostSerializer = DS.ActiveModelSerializer.extend(Blog.HasManySerializerMixin, {
-    primaryKey: function () {
-        return '_id';
-    }.property(),
-////    extractSingle: function (store, type, payload, id) {
-////        var comments = payload.post.comments,
-////            commentIds = comments.mapBy('id');
-////
-////        payload.comments = comments;
-////        payload.post.comments = commentIds;
-////
-////        return this._super.apply(this, arguments);
-////    },
-//    attrs: {
-//        comments: {serialize: 'ids', deserialize: 'ids'}
-//    },
-    serializeHasMany: function(record, json, relationship) {
-        var key = relationship.key;
-        var json_key = key.singularize().decamelize() + '_ids';
-
-        var relationshipType = DS.RelationshipChange.determineRelationshipType(
-            record.constructor, relationship);
-
-        if (relationshipType === 'manyToNone' || relationshipType === 'manyToMany' || relationshipType === 'manyToOne') {
-            json[json_key] = Ember.get(record, key).mapBy('id');
-        }
-    }
-//    serializeHasMany: function(record, json, relationship) {
-//        var key = relationship.key;
-//        var json_key = key.singularize().decamelize() + '_ids';
-//
-//        var relationshipType = DS.RelationshipChange.determineRelationshipType(
-//            record.constructor, relationship);
-//
-//        if (relationshipType === 'manyToNone' || relationshipType === 'manyToMany' || relationshipType === 'manyToOne') {
-//            json[json_key] = Ember.get(record, key).mapBy('id');
-//        }
-//    }
-});
-
-Blog.ProjectSerializer = DS.ActiveModelSerializer.extend({
-    primaryKey: function () {
-        return '_id';
-    }.property()
-});
-
-Blog.ContactSerializer = DS.ActiveModelSerializer.extend({
-    primaryKey: function () {
-        return '_id';
-    }.property()
-});
-
-Blog.UserSerializer = DS.ActiveModelSerializer.extend({
-    primaryKey: function () {
-        return '_id';
-    }.property()
-    //,
-//    serializeHasMany: function(record, json, relationship) {
-//        var key = relationship.key;
-//        var json_key = key.singularize().decamelize() + '_ids';
-//
-//        var relationshipType = DS.RelationshipChange.determineRelationshipType(
-//            record.constructor, relationship);
-//
-//        if (relationshipType === 'manyToNone' || relationshipType === 'manyToMany' || relationshipType === 'manyToOne') {
-//            json[json_key] = Ember.get(record, key).mapBy('id');
-//        }
-//    }
-});
-
-Blog.CommentSerializer = DS.ActiveModelSerializer.extend(DS.EmbeddedRecordsMixin, {
-    primaryKey: function () {
-        return '_id';
-    }.property()//,
-//    attrs: {//{ embedded: 'always' },
-//        user: { embedded: 'always' }, //{serialize: 'id', deserialize: 'id'},
-//        post: { embedded: 'always' } //{serialize: 'id', deserialize: 'id'}
-//    }
-});
-
+Blog.ApplicationSerializer = DS.ActiveModelSerializer.extend({});
+Blog.PostSerializer = DS.ActiveModelSerializer.extend(Blog.IdSerializerMixin, Blog.HasManySerializerMixin, {});
+Blog.ProjectSerializer = DS.ActiveModelSerializer.extend(Blog.IdSerializerMixin, {});
+Blog.ContactSerializer = DS.ActiveModelSerializer.extend(Blog.IdSerializerMixin, {});
+Blog.UserSerializer = DS.ActiveModelSerializer.extend(Blog.IdSerializerMixin, {});
+Blog.CommentSerializer = DS.ActiveModelSerializer.extend(Blog.IdSerializerMixin, DS.EmbeddedRecordsMixin, {});
 Blog.Store = DS.Store.extend({
     revision: 12,
     adapter: DS.ActiveModelAdapter
@@ -187,6 +105,7 @@ Ember.Woof = Ember.ArrayProxy.extend({
         });
     }
 });
+Blog.ContactThumbComponent = Ember.Component.extend(Blog.CheckAccessComponentMixin, Blog.EditComponentMixin, {});
 Blog.ModalDialogComponent = Ember.Component.extend({
     actions: {
         close: function() {
@@ -264,6 +183,9 @@ Blog.PaginationPanelComponent = Ember.Component.extend({
 });
 Blog.PostCategoryComponent = Ember.Component.extend({
     tagName: 'li',
+    hardcodedCategory: function () {
+        return this.get('staticCategory') != 'null' ? this.get('staticCategory') : 'All';
+    }.property('staticCategory'),
     isActive: function () {
         return this.get('staticCategory') === this.get('currentCategory')
     }.property('currentCategory', 'staticCategory'),
@@ -401,9 +323,6 @@ Blog.ApplicationController = Ember.ObjectController.extend({
 	userAuthenticated: function() {
 		return !(this.get("model.name") === "Guest");
 	}.property("name"),
-    socialIcons: {
-
-    },
     actions: {
         logout: function() {
             var _this = this;
@@ -427,14 +346,27 @@ Blog.ApplicationController = Ember.ObjectController.extend({
     }
 });
 
+Blog.PostsController = Ember.ArrayController.extend(Blog.CheckAccessMixin, {});
+
+Blog.ContactsIndexController = Ember.ArrayController.extend(Blog.CheckAccessMixin, {
+    actions: {
+        editContact: function (contact) {
+            var _this = this;
+            contact.save().then(function (data) {}, function (err) {
+                _this.woof.danger(err.responseText);
+                contact.rollback();
+            });
+        }
+    }
+});
 Blog.IndexController = Ember.ArrayController.extend({
 	logo: '',
-	javascriptCreativityCover: '',
-	frontendNewsCover: '',
-	designHintsCover: '',
 	recentProjects: function() {
 		return this.get('content').slice(0, 6);
-	}.property('content.[]')
+	}.property('content.@each'),
+    recentPosts: function () {
+        return this.get('posts').slice(0,3)
+    }.property('posts.@each')
 });
 Blog.LoginController = Ember.Controller.extend({
     userEmail: "",
@@ -531,6 +463,7 @@ Blog.PostController = Ember.ObjectController.extend(Blog.CheckAccessMixin, {
     actions: {
         editPost: function (post) {
             var _this = this;
+            post.set('postedAt', new Date());
             post.save().then(function (data) {}, function (err) {
                 _this.woof.danger(err.responseText);
                 post.rollback();
@@ -540,15 +473,15 @@ Blog.PostController = Ember.ObjectController.extend(Blog.CheckAccessMixin, {
             var controller = this, user = controller.get('user'), post = controller.get('post');
             var comment = this.get('store').createRecord('comment', {
                 text: controller.get('commentText'),
+                postedAt: new Date(),
                 user: user,
-                post: post,
-                postedAt: new Date()
+                post: post
             });
             comment.save().then(function (comment_res) {
-                var comments = controller.get("comments");
+                var comments = controller.get('comments');
                 comments.pushObject(comment_res);
                 post.save().then(function (post_res) {
-                    controller.set("commentText", "");
+                    controller.set('commentText', '');
                 }, function (err) {
                     comments.popObject();
                     controller.woof.danger(err.responseText);
@@ -560,6 +493,7 @@ Blog.PostController = Ember.ObjectController.extend(Blog.CheckAccessMixin, {
         },
         editComment: function (comment) {
             var _this = this;
+            comment.set('postedAt', new Date());
             comment.save().then(function (data) {}, function (err) {
                 _this.woof.danger(err.responseText);
             });
@@ -636,7 +570,7 @@ Blog.ProjectController = Ember.ObjectController.extend(Blog.CheckAccessMixin, {
 		}
 	}
 });
-Blog.ProjectsIndexController = Ember.ArrayController.extend({
+Blog.ProjectsIndexController = Ember.ArrayController.extend(Blog.CheckAccessMixin, {
 	mixRules: ['size-3', 'size-3-half', 'size-3-half', 'size-3-half', 'size-3-half', 'size-2-half', 'size-1', 'size-1',
         'size-1-half', 'size-1-half'],
 	sortAscending: true,
@@ -801,7 +735,6 @@ Blog.ApplicationRoute = Ember.Route.extend({
     }
 
 });
-Blog.CatchallRoute = Ember.Route.extend({});
 Blog.ContactRoute = Ember.Route.extend({
     model: function(params) {
         return this.store.find('contact', params["contact_id"]);
@@ -813,6 +746,10 @@ Blog.ContactsRoute = Ember.Route.extend({
     }
 });
 Blog.IndexRoute = Ember.Route.extend({
+    setupController: function (controller, model) {
+        this._super(controller, model);
+        controller.set('posts', this.store.find('post'));
+    },
     model: function() {
         return this.store.find('project');
     }
@@ -945,6 +882,25 @@ Blog.LoginView = Ember.View.extend({
     animateIn : function () {
         this.$().transition({perspective: '1000px', rotateY: '0deg'}, 'slow');
     }
+});
+Blog.MainLogoView = Ember.View.extend({
+    willAnimateIn : function () {
+        this.$().transition({perspective: '600px', rotateX: '360deg'}, 1);
+    },
+    animateIn : function () {
+        this.$().transition({perspective: '600px', rotateX: '0deg'}, 1400);
+    },
+    tagName: 'img',
+    attributeBindings: ['src'],
+    src: '../img/main-logo.png'
+});
+Blog.PortfolioView = Ember.View.extend({
+    isExpanded: false,
+    classNameBindings: ['isExpanded', 'readMore'],
+    click: function() {
+        this.toggleProperty('isExpanded');
+    },
+    readMore: Ember.computed.gt('length', 140)
 });
 Blog.PostView = Ember.View.extend(Blog.DefaultAnimationMixin, {});
 Blog.PostsView = Ember.View.extend({
@@ -1164,8 +1120,8 @@ Blog.SearchResultsRoute = Ember.Route.extend({
 });
 Blog.CheckAccessComponentMixin = Ember.Mixin.create({
     isAdmin: function () {
-        return this.get('parentView.controller.isAdmin');
-    }.property('parentView.controller.isAdmin')//,
+        return this.get('parentController.isAdmin');
+    }.property('parentController.isAdmin')//,
 //    isOwner: function () { TODO: for superrights
 //        return this.get('parentView.controller.isOwner');
 //    }.property()
@@ -1214,16 +1170,40 @@ Blog.EditComponentMixin = Ember.Mixin.create({
             this.set("editMode", true);
         },
         completeEditing: function() {
-            this.set("unit.postedAt", new Date());
             this.sendAction("completeEditing", this.get("unit"));
             this.set("editMode", false);
         }
     }
 });
-/**
- * Created by root on 8/1/14.
- */
+//Blog.ExtractSingleMixin = Ember.Mixin.extend({
+//    extractSingle: function (store, type, payload, id) {
+//        var items = payload.post.items,
+//            commentIds = items.mapBy('id');
+//
+//        payload.items = items;
+//        payload.post.items = commentIds;
+//
+//        return this._super.apply(this, arguments);
+//    }
+//});
+Blog.HasManySerializerMixin = Ember.Mixin.create({
+    serializeHasMany: function(record, json, relationship) {
+        var key = relationship.key;
+        var json_key = key.singularize().decamelize() + '_ids';
 
+        var relationshipType = DS.RelationshipChange.determineRelationshipType(
+            record.constructor, relationship);
+
+        if (relationshipType === 'manyToNone' || relationshipType === 'manyToMany' || relationshipType === 'manyToOne') {
+            json[json_key] = Ember.get(record, key).mapBy('id');
+        }
+    }
+});
+Blog.IdSerializerMixin = Ember.Mixin.create({
+    primaryKey: function () {
+        return '_id';
+    }.property()
+});
 Blog.PaginatableMixin = Ember.Mixin.create({
 	paginatedContent: function() {
 		var page = this.get('page');

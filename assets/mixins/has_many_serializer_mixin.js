@@ -1,4 +1,4 @@
-Blog.HasManySerializerMixin = Ember.Mixin.extend({
+Blog.HasManySerializerMixin = Ember.Mixin.create({
     serializeHasMany: function(record, json, relationship) {
         var key = relationship.key;
         var json_key = key.singularize().decamelize() + '_ids';

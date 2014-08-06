@@ -2,9 +2,6 @@ Blog.ApplicationController = Ember.ObjectController.extend({
 	userAuthenticated: function() {
 		return !(this.get("model.name") === "Guest");
 	}.property("name"),
-    socialIcons: {
-
-    },
     actions: {
         logout: function() {
             var _this = this;

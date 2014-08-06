@@ -4,16 +4,8 @@
         {{#if editMode}}
             <label for="editTitle">Title:</label>
             {{edit-text value=project.title class="edit-state" id="editTitle"}}
-            <div>
-                <label for="editDescr">Description</label>
-                {{edit-text value=project.description class="edit-state" id="editDescr"}}
-            </div>
-            <div>
-                <label for="editCover">Cover</label>
-                {{view Blog.FileUploadView id="editCover" class="edit-state" name="editCover" contentBinding="content"}}
-            </div>
         {{else}}
-            <h2>{{project.title}}</h2>
+            <h2>{{project.description}}</h2>
             {{#if isAdmin}}
                 <a {{action "startEditing"}} class="btn btn-primary" href="#">
                     <i class="icon-pencil icon-large"></i>
@@ -26,12 +18,20 @@
     </div>
     <div class="area">
         {{#if editMode}}
+            <div>
+                <label for="editDescr">Description</label>
+                {{edit-text value=project.description class="edit-state" id="editDescr"}}
+            </div>
+            <div>
+                <label for="editCover">Cover</label>
+                {{view Blog.FileUploadView id="editCover" class="edit-state" name="editCover" contentBinding="content"}}
+            </div>
             <label for="editPost">Post:</label>
-            {{edit-textarea value=project.text class="edit-state" id="editPost"}}
+            {{wysiwyg-editor content=project.text class="edit-state" header="Edit"}}
             <a {{action "completeEditing"}} class="btn btn-primary" href="#">
                 <i class="icon-ok icon-large"></i></a>
         {{else}}
-            <p>{{project.text}}</p>
+            <p>{{{project.text}}}</p>
         {{/if}}
     </div>
 </div>

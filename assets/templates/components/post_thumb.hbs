@@ -10,7 +10,7 @@
     <div class="content">
         <h4>{{#link-to 'post' post title=post.title}} {{post.title}} {{/link-to}}</h4>
         <i class="icon-folder-open"></i>
-        <a href="#" {{bind-attr title="category"}}>{{post.category}}</a>
+        {{#link-to 'posts' (query-params category=post.category)}}{{post.category}}{{/link-to}}
         {{#if isAdmin}}
             <span class="action-buttons">
                 <a {{action "removePost"}} class="btn btn-danger" href="#">

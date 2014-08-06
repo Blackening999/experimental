@@ -1,4 +1,4 @@
-Blog.ProjectsIndexController = Ember.ArrayController.extend({
+Blog.ProjectsIndexController = Ember.ArrayController.extend(Blog.CheckAccessMixin, {
 	mixRules: ['size-3', 'size-3-half', 'size-3-half', 'size-3-half', 'size-3-half', 'size-2-half', 'size-1', 'size-1',
         'size-1-half', 'size-1-half'],
 	sortAscending: true,

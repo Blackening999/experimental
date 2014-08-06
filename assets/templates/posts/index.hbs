@@ -27,7 +27,7 @@
     <!--</div>-->
 
     {{#each firstColumn}}
-        {{post-thumb post=this removePost="removePost"}}
+        {{post-thumb post=this parentController=controller removePost="removePost"}}
     {{/each}}
 
     {{#if showPagination}}
@@ -37,6 +37,6 @@
 
 <div class="span4 blog-items">
     {{#each secondColumn}}
-        {{post-thumb post=this removePost="removePost" }}
+        {{post-thumb post=this parentController=controller removePost="removePost" }}
     {{/each}}
 </div>

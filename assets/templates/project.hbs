@@ -1,7 +1,7 @@
 <div class="cont-outer">
 
     <!-- Single Page -->
-    <h1>Single Page</h1>
+    <h1>{{title}}</h1>
     <div class="sep20"></div>
     <div class="row-fluid blog">
 
@@ -32,16 +32,10 @@
                 </div>
             {{/if}}
 
-            {{project-full project=this completeEditing="editProject" removeProject="removeProject"}}
+            {{project-full project=this parentController=controller completeEditing="editProject" removeProject="removeProject"}}
         </div>
         <!-- Right Side -->
         <div class="right-side span4">
-
-            {{#if isAdmin}}
-                <div class="block step blog-item visible-desktop visible-tablet">
-                    {{#link-to 'projects.create' class="btn btn-success"}} <i class="icon-plus-sign icon-white"></i>   New Poject {{/link-to}}
-                </div>
-            {{/if}}
 
             <!-- Categories -->
             <!--<div class="block step visible-desktop visible-tablet">-->

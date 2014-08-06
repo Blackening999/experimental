@@ -1,7 +1,7 @@
 Blog.CheckAccessComponentMixin = Ember.Mixin.create({
     isAdmin: function () {
-        return this.get('parentView.controller.isAdmin');
-    }.property('parentView.controller.isAdmin')//,
+        return this.get('parentController.isAdmin');
+    }.property('parentController.isAdmin')//,
 //    isOwner: function () { TODO: for superrights
 //        return this.get('parentView.controller.isOwner');
 //    }.property()
@@ -50,16 +50,40 @@ Blog.EditComponentMixin = Ember.Mixin.create({
             this.set("editMode", true);
         },
         completeEditing: function() {
-            this.set("unit.postedAt", new Date());
             this.sendAction("completeEditing", this.get("unit"));
             this.set("editMode", false);
         }
     }
 });
-/**
- * Created by root on 8/1/14.
- */
+//Blog.ExtractSingleMixin = Ember.Mixin.extend({
+//    extractSingle: function (store, type, payload, id) {
+//        var items = payload.post.items,
+//            commentIds = items.mapBy('id');
+//
+//        payload.items = items;
+//        payload.post.items = commentIds;
+//
+//        return this._super.apply(this, arguments);
+//    }
+//});
+Blog.HasManySerializerMixin = Ember.Mixin.create({
+    serializeHasMany: function(record, json, relationship) {
+        var key = relationship.key;
+        var json_key = key.singularize().decamelize() + '_ids';
 
+        var relationshipType = DS.RelationshipChange.determineRelationshipType(
+            record.constructor, relationship);
+
+        if (relationshipType === 'manyToNone' || relationshipType === 'manyToMany' || relationshipType === 'manyToOne') {
+            json[json_key] = Ember.get(record, key).mapBy('id');
+        }
+    }
+});
+Blog.IdSerializerMixin = Ember.Mixin.create({
+    primaryKey: function () {
+        return '_id';
+    }.property()
+});
 Blog.PaginatableMixin = Ember.Mixin.create({
 	paginatedContent: function() {
 		var page = this.get('page');

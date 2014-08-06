@@ -25,5 +25,11 @@
     </div>
     <!-- Portfolio end -->
 
+    {{#if isAdmin}}
+        <div class="block step blog-item visible-desktop visible-tablet">
+            {{#link-to 'projects.create' class="btn btn-success"}} <i class="icon-plus-sign icon-white"></i>   New Poject {{/link-to}}
+        </div>
+    {{/if}}
+
 </div>
 <!--Body End -->
