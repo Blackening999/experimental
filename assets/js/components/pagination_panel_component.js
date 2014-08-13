@@ -16,7 +16,7 @@ Blog.PaginationPanelComponent = Ember.Component.extend({
 
 		var limit = pages < 5 ? pages : 5;
 		var start = page - Math.floor(parseInt(limit / 2));
-		if (finish(start, limit) > pages) { start = pages - limit + 1 };
+		if (finish(start, limit) > pages) { start = pages - limit + 1 }
 		if (start < 1) start = 1;
 
 		var results = [];
