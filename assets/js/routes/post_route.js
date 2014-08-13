@@ -1,11 +1,4 @@
 Blog.PostRoute = Ember.Route.extend({
-    setupController: function (controller, model) {
-        this._super(controller, model);
-        controller.setProperties({
-            user: this.modelFor('application'),
-            authenticated: this.controllerFor('application').get("userAuthenticated")
-        });
-    },
     model: function(params) {
         return this.store.find('post', params["post_id"]);
     },

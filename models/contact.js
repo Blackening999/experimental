@@ -7,18 +7,39 @@ var schema = new Schema({
 		unique: true,
 		required: true
 	},
-	direction: {
-		type: String,
-		required: true
-	},
-	age: {
-		type: Number,
-		required: true
-	},
-	skills: {
-		type: Array,
-		required: true
-	},
+    email: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    address: {
+        type: String
+    },
+    phone: {
+        type: String
+    },
+    skype: {
+        type: String
+    },
+    googleplus: {
+        type: String
+    },
+    linkedin: {
+        type: String
+    },
+    facebook: {
+        type: String
+    },
+    github: {
+        type: String
+    },
+    twitter: {
+        type: String
+    },
+    credentials: {
+      type: String,
+      required: true
+    },
 	portfolio: {
 		type: String,
 		required: true

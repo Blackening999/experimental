@@ -10,7 +10,7 @@
             <h2>{{unit.description}}
                 {{#if isAdmin}}
                     <a {{action "startEditing"}} class="btn btn-primary" href="#">
-                        <i class="icon-pencil icon-large"></i>
+                        <i class="fa fa-pencil fa-lg"></i>
                     </a>
                 {{/if}}
             </h2>
@@ -31,9 +31,9 @@
                 {{view Blog.FileUploadView id="editCover" class="edit-state" name="editCover" contentBinding="content"}}
             </div>
             <label for="editArea">Post:</label>
-            {{wysiwyg-editor content=unit.text header="Edit"}}
+            {{wysiwyg-editor content=unit.text id="EditPost"}}
             <a {{action "completeEditing"}} class="btn btn-primary" href="#">
-                <i class="icon-ok icon-large"></i>
+                <i class="fa fa-check fa-lg"></i>
             </a>
         {{else}}
             <p>{{{unit.text}}}</p>

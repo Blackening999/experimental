@@ -1,7 +1,7 @@
 var express = require('express'),
+    path = require('path'),
 	mongoStore = require('connect-mongo')(express),
 	flash = require('connect-flash'),
-//	helpers = require('view-helpers'),
 	config = require('../config/config'),
 	root = require('../root'),
 	log = require('./log')(module);
@@ -21,7 +21,7 @@ module.exports = function(app, passport, db) {
 	}));
 
 	//Setting the fav icon and static folder
-//	app.use(express.favicon());
+	app.use(express.favicon(path.join(__dirname, '../builds','img','favicon.ico')));
 	app.use(express.static(config.root + '/builds'));
 	app.use(express.static(config.root + '/.tmp'));
 

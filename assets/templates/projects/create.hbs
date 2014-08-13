@@ -22,8 +22,8 @@
                             <div class="item"><iframe src="http://player.vimeo.com/video/62122063?title=0&amp;byline=0&amp;portrait=0&amp;color=ffffff" class="iframe_single_page"></iframe></div>
                         </div>
                         <!-- Carousel nav -->
-                        <a class="carousel-control left" href="#myCarousel" data-slide="prev"><i class="icon-angle-left"></i></a>
-                        <a class="carousel-control right" href="#myCarousel" data-slide="next"><i class="icon-angle-right"></i></a>
+                        <a class="carousel-control left" href="#myCarousel" data-slide="prev"><i class="fa fa-angle-left"></i></a>
+                        <a class="carousel-control right" href="#myCarousel" data-slide="next"><i class="fa fa-angle-right"></i></a>
                     </div>
                     <!-- Carousel end -->
                 {{else}}
@@ -49,7 +49,7 @@
                         <label for="ediText">Post:</label>
                         {{edit-textarea value=text class="edit-state" id="editText"}}
                         <a {{action "createUnit"}} class="btn btn-primary" data-type="cover" href="#">
-                            <i class="icon-ok icon-large"></i></a>
+                            <i class="fa fa-ok fa-lg"></i></a>
                     </div>
                 </div>
             </div>
@@ -60,7 +60,7 @@
         <div class="right-side span4">
 
             <div class="block step blog-item visible-desktop visible-tablet">
-                {{#link-to 'projects.create' class="btn btn-success"}} <i class="icon-plus-sign icon-white"></i>   New Poject {{/link-to}}
+                {{#link-to 'projects.create' class="btn btn-success"}} <i class="fa fa-plus fa-inverse"></i>   New Poject {{/link-to}}
             </div>
 
             <!-- Categories -->

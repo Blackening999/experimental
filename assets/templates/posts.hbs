@@ -10,7 +10,7 @@
                 <!-- New post -->
                 <div class="block step blog-item visible-desktop visible-tablet">
 
-                    {{#link-to 'posts.create' class="btn btn-success"}} <i class="icon-plus-sign icon-white"></i>
+                    {{#link-to 'posts.create' class="btn btn-success"}} <i class="fa fa-plus fa-inverse"></i>
                         New Post
                     {{/link-to}}
                 </div>
@@ -22,7 +22,7 @@
                 <form class="form-search">
                     {{view Ember.TextField value=keyword placeholder="Search..." classNames="span12 search-query"}}
                     <!--<input type="text" placeholder="Search..." class="span12 search-query">-->
-                    <button {{action 'search'}}><i class="icon-search"></i></button>
+                    <button {{action 'search'}}><i class="fa fa-search"></i></button>
                 </form>
             </div>
             <!-- Search end -->
@@ -31,7 +31,7 @@
             <!-- Categories -->
             <div class="block step visible-desktop visible-tablet">
                 <div class="header">
-                    <h3>Category</h3>
+                    <h3><i class="fa fa-tags"></i>&nbsp;Tags:</h3>
                 </div>
 
                 <div class="area categories">
@@ -48,7 +48,7 @@
             <!-- Twitter Widget -->
             <!--<div class="block step">-->
                  <!--<div class="header">-->
-                     <!--<h3>Tweets  <i class="icon-twitter"></i></h3>-->
+                     <!--<h3>Tweets  <i class="fa fa-twitter"></i></h3>-->
                  <!--</div>-->
                  <!--<div class="area">-->
                      <!--<div id="twitter"></div>-->
@@ -80,7 +80,7 @@
                         <!--means whatever devices you'll be browsing, the content will always stay perfect, no matter the-->
                         <!--resolution! </p><br/>-->
 
-                    <!--<p><a class="btn btn-success" href="#"><i class="icon-shopping-cart icon-large"></i> Get BAB Theme-->
+                    <!--<p><a class="btn btn-success" href="#"><i class="fa fa-shopping-cart fa fa-large"></i> Get BAB Theme-->
                         <!--Now!</a></p>-->
                 <!--</div>-->
             <!--</div>-->

@@ -2,8 +2,6 @@
 <div class="cont-outer">
 
     <!-- About Author -->
-    <h1>Our Team</h1>
-    <div class="sep20"></div>
     <div class="row-fluid team">
         {{#each}}
             {{contact-thumb unit=this parentController=controller completeEditing="editContact"}}
@@ -12,20 +10,26 @@
     <!-- About Author -->
     <div class="separator"></div>
     <!-- Areas -->
-    <h1>Professional Areas</h1>
+    <h1>Services</h1>
     <div class="sep20"></div>
     <div class="row-fluid">
-        <div class="span4 step block">
-            <h4><i class="icon-picture"></i>&nbsp;&nbsp;&nbsp;&nbsp;Front-End Development</h4>
-            About Front-End development
+        <div class="span4 step block blog-areas">
+            <h4><i class="fa fa-picture"></i><span class="main-area-node">Front-End Development</span></h4>
+            <p><i class="fa fa-pencil"></i><span class="area-node">JavaScript and jQuery plugins</span></p>
+            <p><i class="fa fa-fire"></i><span class="area-node">Ember and Ember-Data tutorials</span></p>
+            <p><i class="fa fa-leaf"></i><span class="area-node">HTML and CSS tricks</span></p>
         </div>
-        <div class="span4 step block">
-            <h4><i class="icon-cogs"></i>&nbsp;&nbsp;&nbsp;&nbsp;Back-End Development</h4>
-            About Back-End development
+        <div class="span4 step block blog-areas">
+            <h4><i class="fa fa-cogs"></i><span class="main-area-node">Back-End Development</span></h4>
+            <p><i class="fa fa-wrench"></i><span class="area-node">Node.js approaches</span></p>
+            <p><i class="fa fa-globe"></i><span class="area-node">AJAX layer</span></p>
+            <p><i class="fa fa-database"></i><span class="area-node">Database hacks</span></p>
         </div>
-        <div class="span4 step block team">
-            <h4><i class="icon-headphones"></i>&nbsp;&nbsp;&nbsp;&nbsp;Consultation</h4>
-            About Consultations
+        <div class="span4 step block blog-areas">
+            <h4><i class="fa fa-headphones"></i><span class="main-area-node">Consultation</span></h4>
+            <p><i class="fa fa-info"></i><span class="area-node">Private Consultations</span></p>
+            <p><i class="fa fa-question"></i><span class="area-node">Weekly Questions</span></p>
+            <p><i class="fa fa-book"></i><span class="area-node">Training Courses</span></p>
         </div>
     </div>
     <!-- Areas -->

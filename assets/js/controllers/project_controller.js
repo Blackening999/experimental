@@ -7,14 +7,16 @@ Blog.ProjectController = Ember.ObjectController.extend(Blog.CheckAccessMixin, {
 			})
 		},
 		removeProject: function(project) {
-			var controller = this;
-			project.deleteRecord();
-			project.save().then(function(data) {
-				controller.transitionToRoute("/projects");
-			}, function(reason) {
-				console.log("Failed to delete project. Reason: " + reason);
-				project.rollback();
-			});
+            if (confirm('Are you sure?')) {
+                var controller = this;
+                project.deleteRecord();
+                project.save().then(function (data) {
+                    controller.transitionToRoute("/projects");
+                }, function (reason) {
+                    console.log("Failed to delete project. Reason: " + reason);
+                    project.rollback();
+                });
+            }
 		}
 	}
 });

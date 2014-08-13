@@ -26,6 +26,7 @@
     "moment": "~2.7.0",
     "ember-animate": "~0.3.4",
     "jquery.transit": "~0.9.12",
-    "summernote": "~0.5.2"
+    "summernote": "~0.5.2",
+    "blueimp-md5": "~1.1.0"
   }
 }

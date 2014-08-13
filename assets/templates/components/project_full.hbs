@@ -8,10 +8,10 @@
             <h2>{{project.description}}</h2>
             {{#if isAdmin}}
                 <a {{action "startEditing"}} class="btn btn-primary" href="#">
-                    <i class="icon-pencil icon-large"></i>
+                    <i class="fa fa-pencil fa-lg"></i>
                 </a>
                 <a {{action "removeProject"}} class="btn btn-danger" href="#">
-                    <i class="icon-trash icon-large"></i>
+                    <i class="fa fa-trash-o fa-lg"></i>
                 </a>
             {{/if}}
         {{/if}}
@@ -27,9 +27,9 @@
                 {{view Blog.FileUploadView id="editCover" class="edit-state" name="editCover" contentBinding="content"}}
             </div>
             <label for="editPost">Post:</label>
-            {{wysiwyg-editor content=project.text class="edit-state" header="Edit"}}
+            {{wysiwyg-editor content=project.text class="edit-state" id="EditProject"}}
             <a {{action "completeEditing"}} class="btn btn-primary" href="#">
-                <i class="icon-ok icon-large"></i></a>
+                <i class="fa fa-check fa-lg"></i></a>
         {{else}}
             <p>{{{project.text}}}</p>
         {{/if}}

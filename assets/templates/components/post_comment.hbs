@@ -2,7 +2,7 @@
 <ul class="media-list">
         <li class="media">
             <a class="pull-left" href="#">
-                <img class="media-object" {{bind-attr src="user.avatar"}}>
+                <img class="media-object" {{bind-attr src="user.photo"}}>
             </a>
 
             <div class="media-body">
@@ -15,7 +15,7 @@
                     <p>{{edit-textarea value=unit.text class="edit-state"}}</p>
                     <div class="comment-actions">
                         <a {{action "completeEditing"}} class="btn btn-primary" href="#">
-                            <i class="icon-ok icon-large"></i>
+                            <i class="fa fa-check fa-lg"></i>
                         </a>
                     </div>
                 {{else}}

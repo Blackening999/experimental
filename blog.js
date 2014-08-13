@@ -1,11 +1,6 @@
 var express = require('express'),
 	fs = require('fs'),
 	passport = require('passport');
-//var http = require('http');
-//var path = require('path');
-//var config = require('config');
-//var log = require('./libs/log')(module);
-//var mongoose = require('./libs/mongoose');
 
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development',
 	config = require('./config/config'),

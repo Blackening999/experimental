@@ -1,6 +1,8 @@
 require('ember');
 require('ember_data');
 require('custom_prefs');
+require('moment');
+require('md5');
 
 Ember.FEATURES["query-params"] = true;
 Ember.Router.reopen({

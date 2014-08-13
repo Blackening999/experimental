@@ -1,4 +1,5 @@
 Blog.LoginController = Ember.Controller.extend({
+    needs: ['application'],
     userEmail: "",
     userPassword: "",
     loginFailed: false,
@@ -31,26 +32,17 @@ Blog.LoginController = Ember.Controller.extend({
                         _this.woof.danger(res.error);
                         return;
                     }
-                    var model = _this.get("model");
-//                model.set("content", $this.store.find('user', user.id))
-                    model.setProperties({
-                        id: res._id,
-                        name: res.name,
-                        email: res.email,
-                        //comments: res.comment_ids, TODO: for future availability, there should be used something like extractSingle :)
-                        isAdmin: res.is_admin,
-                        isOwner: res.is_owner
-                    });//this.store.find('user', user.id);
-                    _this.woof.success("Wellcome, your majesty " + res.name);
-
-
-                    var toTransition = _this.get('toTransition');
-                    if (toTransition) {
-                        _this.set('toTransition', null);
-                        _this.transitionToRoute(toTransition.route, toTransition.id);
-                    } else {
-                        _this.transitionToRoute('application');
-                    }
+                    _this.get('store').find('user', res._id).then(function (user) {
+                        _this.set('controllers.application.model', user);
+                        _this.woof.success("Wellcome, your majesty " + res.name);
+                        var toTransition = _this.get('toTransition');
+                        if (toTransition) {
+                            _this.set('toTransition', null);
+                            _this.transitionToRoute(toTransition.route, toTransition.id);
+                        } else {
+                            _this.transitionToRoute('application');
+                        }
+                    });
                 });
 
             }, function (xhr, status, error) {

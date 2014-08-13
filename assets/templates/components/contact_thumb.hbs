@@ -2,28 +2,94 @@
     <div {{bind-attr class=":block :step editMode:editing"}}>
         <div class="area">
             <div>
+                <label for="editName">Name:</label>
+                {{edit-text value=unit.name class="edit-state" id="editName"}}
+            </div>
+            <div>
+                <label for="editEmail">Email:</label>
+                {{edit-text value=unit.email class="edit-state" id="editEmail"}}
+            </div>
+            <div>
+                <label for="editPhone">Phone:</label>
+                {{edit-text value=unit.phone class="edit-state" id="editPhone"}}
+            </div>
+            <div>
+                <label for="editSkype">Skype:</label>
+                {{edit-text value=unit.skype class="edit-state" id="editSkype"}}
+            </div>
+            <div>
+                <label>Socials:</label>
+                {{#with unit}}
+                    {{edit-text value=twitter class="edit-state" placeholder="twitter"}}
+                    {{edit-text value=facebook class="edit-state" placeholder="facebook"}}
+                    {{edit-text value=googleplus class="edit-state" placeholder="googleplus"}}
+                    {{edit-text value=linkedin class="edit-state" placeholder="linkedin"}}
+                    {{edit-text value=github class="edit-state" placeholder="github"}}
+                {{/with}}
+            </div>
+            <div>
+                <label for="editPhoto">Photo:</label>
+                <img class="img-circle" {{bind-attr src=unit.photo}}>
+                {{view Blog.FileUploadView id="editPhoto" class="edit-state" name="editPhoto" contentBinding="content"}}
+            </div>
+            <div>
+                <label>Credentials:</label>
+                {{wysiwyg-editor content=unit.credentials id="EditCredentials"}}
+            </div>
+            <div>
                 <label>Portfolio:</label>
-                {{wysiwyg-editor content=unit.portfolio header="Edit"}}
+                {{wysiwyg-editor content=unit.portfolio id="EditPortfolio"}}
                 <a {{action "completeEditing"}} class="btn btn-primary pull-right" href="#">
-                    <i class="icon-ok icon-large"></i>
+                    <i class="fa fa-check fa-lg"></i>
                 </a>
             </div>
         </div>
     </div>
 {{else}}
-    {{#view 'Blog.PortfolioView' length=unit.portfolio.length class='step'}}
+    <div class='step block credentials span8 min'>
+        <!--<div class="content">-->
+            <div class="contact-photo pull-left span4">
+                <img class="img-circle" {{bind-attr src=unit.photo}}>
+            </div>
+            <div class="contact-info span8">
+                <h2>{{unit.name}}</h2>
+                <div>
+                    {{{unit.credentials}}}
+                </div>
+            </div>
+
+        <!--</div>-->
+    </div>
+    <div class="step block span4 min contact-info">
+        <h2>Contact Info</h2>
+        <div class="credential"><i class="fa fa-envelope-square fa-2x uniwidth28"></i><span class="v-centred">{{#mail-to email=unit.email}}{{unit.email}}{{/mail-to}}</span></div>
+        {{#if unit.phone}}<div class="credential"><i class="fa fa-phone-square fa-2x uniwidth28"></i> <span class="v-centred">{{unit.phone}}</span></div>{{/if}}
+        {{#if unit.address}}<div class="credential"><i class="fa fa-map-marker fa-2x uniwidth28"></i> <span class="v-centred">{{unit.address}}</span></div>{{/if}}
+        {{#if unit.skype}}<div class="credential"><i class="fa fa-skype fa-2x uniwidth28"></i><span class="v-centred">{{unit.skype}}</span></div>{{/if}}
+        <div class="social-links">
+            {{#with unit}}
+                {{#if twitter}}<a {{bind-attr href=twitter}} target="_blank"><i class="fa fa-twitter-square fa-3x"></i></a>{{/if}}
+                {{#if facebook}}<a {{bind-attr href=facebook}} target="_blank"><i class="fa fa-facebook-square fa-3x"></i></a>{{/if}}
+                {{#if googleplus}}<a {{bind-attr href=googleplus}} target="_blank"><i class="fa fa-google-plus-square fa-3x"></i></a>{{/if}}
+                {{#if linkedin}}<a {{bind-attr href=linkedin}} target="_blank"><i class="fa fa-linkedin-square fa-3x"></i></a>{{/if}}
+                {{#if github}}<a {{bind-attr href=github}} target="_blank"><i class="fa fa-github-square fa-3x"></i></a>{{/if}}
+            {{/with}}
+        </div>
+    </div>
+    {{#view 'Blog.PortfolioView' length=unit.portfolio.length class='step block portfolio span12'}}
+        <h2>About Author</h2>
         <div class='content'>{{{unit.portfolio}}}</div>
         <span class='expand'> Read
             {{#if view.isExpanded}}
-                Less <i class="icon-minus-sign"></i>
+                Less <i class="fa fa-minus-circle"></i>
             {{else}}
-                More <i class="icon-plus-sign"></i>
+                More <i class="fa fa-plus-circle"></i>
             {{/if}}
             </span>
     {{/view}}
     {{#if isAdmin}}
         <a {{action "startEditing"}} class="btn btn-primary pull-right" href="#">
-            <i class="icon-pencil icon-large"></i>
+            <i class="fa fa-pencil fa-lg"></i>
         </a>
     {{/if}}
 {{/if}}

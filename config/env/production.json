@@ -1,5 +1,5 @@
 {
-	"db": "mongodb://localhost/blackening-blog",
+	"db": "mongodb:blackening:Farcry11Forester99db@ds061839.mongolab.com:61839/blackening-blog",
 	"db_options": {
 		"server": {
 			"socketOptions": {

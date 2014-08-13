@@ -67,7 +67,8 @@ module.exports = function(passport) {
 						name: profile.displayName,
 						username: profile.username,
 						avatar: profile._json.profile_image_url.replace("normal", "bigger"),
-						provider: 'twitter'
+						provider: 'twitter',
+                        twitter: profile._json
 					});
 					user.save(function(err) {
 						if (err) console.log(err);
@@ -98,7 +99,8 @@ module.exports = function(passport) {
 					user = new User({
 						name: profile.displayName,
 						avatar: "https://graph.facebook.com/" + profile.id + "/picture?type=normal",
-						provider: 'facebook'
+						provider: 'facebook',
+                        facebook: profile._json
 					});
 					user.save(function(err) {
 						if (err) console.log(err);
@@ -125,7 +127,8 @@ module.exports = function(passport) {
 					user = new User({
 						name: profile.displayName,
 						avatar: profile._json.avatar_url + "size=73",
-						provider: 'github'
+						provider: 'github',
+                        github: profile._json
 					});
 					user.save(function(err) {
 						if (err) console.log(err);
@@ -152,7 +155,8 @@ module.exports = function(passport) {
 					user = new User({
 						name: profile.displayName,
 						avatar: profile._json.pictureUrl,
-						provider: 'linkedin'
+						provider: 'linkedin',
+                        linkedin: profile._json
 					});
 					user.save(function(err) {
 						if (err) console.log(err);
@@ -179,7 +183,8 @@ module.exports = function(passport) {
 					user = new User({
 						name: profile.displayName,
 						provider: 'google',
-						avatar: profile._json.picture + "?sz=73"
+						avatar: profile._json.picture + "?sz=73",
+                        google: profile._json
 					});
 					user.save(function(err) {
 						if (err) console.log(err);

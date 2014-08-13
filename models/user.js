@@ -24,7 +24,12 @@ var UserSchema = new Schema({
     is_owner: Boolean,
 	provider: String,
 	hashed_password: String,
-	salt: String
+	salt: String,
+    facebook: {},
+    linkedin: {},
+    twitter: {},
+    github: {},
+    google: {}
 });
 
 /**

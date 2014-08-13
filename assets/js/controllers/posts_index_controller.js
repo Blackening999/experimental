@@ -25,11 +25,14 @@ Blog.PostsIndexController = Ember.ArrayController.extend(Blog.PaginatableMixin, 
 	actions: {
 		removePost: function(post) {
             var _this = this;
-			post.deleteRecord();
-			post.save().then(function(data) {}, function(err) {
-                _this.woof.danger(err.responseText);
-                post.rollback();
-            });
+            if (confirm('Are you sure?')) {
+                post.deleteRecord();
+                post.save().then(function(data) {}, function(err) {
+                    _this.woof.danger(err.responseText);
+                    post.rollback();
+                });
+            }
+
 		}
 	}
 });

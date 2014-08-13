@@ -29,8 +29,7 @@ var schema = new Schema({
 	},
     comment_ids: Array,
     posted_at: {
-		type: Date,
-		default: Date.now
+		type: Date
 	}
 });
 

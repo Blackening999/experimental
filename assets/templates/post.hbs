@@ -10,7 +10,7 @@
             <form class="form-search">
                 {{view Ember.TextField value=keyword placeholder="Search..." classNames="span12 search-query"}}
                 <!--<input type="text" placeholder="Search..." class="span12 search-query">-->
-                <button {{action 'search'}}><i class="icon-search"></i></button>
+                <button {{action 'search'}}><i class="fa fa-search"></i></button>
             </form>
         </div>
         <!-- Search end -->
@@ -46,8 +46,8 @@
                     <div class="item"><iframe src="http://player.vimeo.com/video/62122063?title=0&amp;byline=0&amp;portrait=0&amp;color=ffffff" class="iframe_single_page"></iframe></div>
                 </div>
                 <!-- Carousel nav -->
-                <a class="carousel-control left" href="#myCarousel" data-slide="prev"><i class="icon-angle-left"></i></a>
-                <a class="carousel-control right" href="#myCarousel" data-slide="next"><i class="icon-angle-right"></i></a>
+                <a class="carousel-control left" href="#myCarousel" data-slide="prev"><i class="fa fa-angle-left"></i></a>
+                <a class="carousel-control right" href="#myCarousel" data-slide="next"><i class="fa fa-angle-right"></i></a>
             </div>
             <!-- Carousel end -->
         {{else}}
@@ -56,15 +56,15 @@
             </div>
         {{/if}}
 
-        {{post-full unit=post parentController=controller completeEditing="editPost"}}
+        {{post-full unit=this parentController=controller completeEditing="editPost"}}
 
         <!-- Comments -->
         <div class="block step">
             <div class="header">
-                <h3>{{comments.length}} Comment{{pluralize comments.length}}</h3>
+                <h3>{{this.comments.length}} Comment{{pluralize this.comments.length}}</h3>
             </div>
             <div class="area">
-                {{#each comment in comments}}
+                {{#each comment in this.comments}}
                     {{post-comment unit=comment currentUser=user completeEditing="editComment" deleteComment="deleteComment"}}
                 {{else}}
                     <h4> There's no comments yet </h4>
